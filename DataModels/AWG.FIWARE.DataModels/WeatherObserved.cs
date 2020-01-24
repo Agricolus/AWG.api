@@ -1,3 +1,5 @@
+using System;
+
 namespace AWG.FIWARE.DataModels
 {
     public class WeatherObserved

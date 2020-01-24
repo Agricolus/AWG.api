@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace AWG.FIWARE.DataModels
 {
   public class DeviceModel
