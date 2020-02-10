@@ -1,7 +1,7 @@
 using AWG.Common;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AWG.Measures.handlers
+namespace AWG.Measures.Handlers
 {
   public class Module : IModule
   {
