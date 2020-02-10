@@ -1,12 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj" />
-    <ProjectReference Include="..\AWG.Measures.core\AWG.Measures.core.csproj" />
+    <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj"/>
+    <ProjectReference Include="..\AWG.Measures.core\AWG.Measures.core.csproj"/>
+    <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1"/>
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
 </Project>

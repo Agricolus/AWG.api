@@ -1,6 +1,6 @@
 using System;
 
-namespace AWG.Measures.handlers.Model
+namespace AWG.Stations.handlers.Model
 {
   public class Stations
   {

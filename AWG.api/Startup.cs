@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using MediatR.Pipeline;
 using MediatR;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace AWG.api
 {
@@ -28,6 +29,7 @@ namespace AWG.api
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      // services.AddEntity
       services.AddControllers();
 
       services.AddSwaggerGen(g =>

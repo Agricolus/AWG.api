@@ -1,4 +1,4 @@
-namespace AWG.Common
+namespace AWG.FIWARE.DataModels
 {
   public enum WeatherMeasureVisibilityEnum
   {
