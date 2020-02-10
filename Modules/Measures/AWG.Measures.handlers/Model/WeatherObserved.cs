@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AWG.FIWARE.DataModels;
+using Toolbelt.ComponentModel.DataAnnotations.Schema;
 
 namespace AWG.Measures.Handlers.Model
 {
@@ -13,6 +14,7 @@ namespace AWG.Measures.Handlers.Model
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long _id { get; set; }
 
+    [Index("weather_unique", 1)]
     [StringLength(50)]
     public string Id { get; set; }
     public Uri DataProvider { get; set; }
@@ -23,8 +25,11 @@ namespace AWG.Measures.Handlers.Model
     public string Name { get; set; }
     // public object Location { get; set; }
     public string Address { get; set; }
+    [Index("weather_date", 1)]
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }
+    [Index("weather_date", 0)]
+    [Index("weather_unique", 0)]
     public string RefDevice { get; set; }
     public string RefPointOfInterest { get; set; }
     public WeatherTypeEnum WeatherType { get; set; }
@@ -37,8 +42,8 @@ namespace AWG.Measures.Handlers.Model
     public double WindDirection { get; set; }
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
-    [StringLength(20)]
-    public string PressureTendency { get; set; }
+
+    public PressureTendencyEnum PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

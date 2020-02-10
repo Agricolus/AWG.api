@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AWG.Stations.handlers.Migrations
 {
@@ -11,7 +12,9 @@ namespace AWG.Stations.handlers.Migrations
                 name: "Stations",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    _Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(nullable: true),
                     Source = table.Column<string>(nullable: true),
                     DataProvider = table.Column<string>(nullable: true),
                     Category = table.Column<string>(nullable: true),
@@ -33,7 +36,7 @@ namespace AWG.Stations.handlers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stations", x => x.Id);
+                    table.PrimaryKey("PK_Stations", x => x._Id);
                 });
         }
 

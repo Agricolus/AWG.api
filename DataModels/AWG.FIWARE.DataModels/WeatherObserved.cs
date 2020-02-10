@@ -32,7 +32,7 @@ namespace AWG.FIWARE.DataModels
     public double WindDirection { get; set; }
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
-    public string PressureTendency { get; set; }
+    public PressureTendencyEnum PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using AWG.Measures.Core.Query;
 using AWG.Measures.Core.Dto;
 
+using fiware = AWG.FIWARE.DataModels;
+
 namespace AWG.Measures.API.Controllers
 {
   [ApiController]
@@ -29,7 +31,7 @@ namespace AWG.Measures.API.Controllers
     }
 
     [Route("last"), HttpGet]
-    public async Task<MeasureDetail> GetLastMeasure(string stationId)
+    public async Task<fiware.WeatherObserved> GetLastMeasure(string stationId)
     {
       return await mediator.Send(new GetLastMeasure() { StationId = stationId });
     }
@@ -68,7 +70,7 @@ namespace AWG.Measures.API.Controllers
     }
 
     [Route("interval"), HttpGet]
-    public async Task<IEnumerable<MeasureDetail>> GetMeasureList(string stationId, DateTime fromDate, DateTime? toDate = null)
+    public async Task<IEnumerable<fiware.WeatherObserved>> GetMeasureList(string stationId, DateTime fromDate, DateTime? toDate = null)
     {
       return await mediator.Send(new GetMeasuresList()
       {
