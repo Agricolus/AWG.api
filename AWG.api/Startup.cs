@@ -1,3 +1,4 @@
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using MediatR.Pipeline;
 using MediatR;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using AWG.api.AppStartup;
 
 namespace AWG.api
 {
@@ -22,6 +24,8 @@ namespace AWG.api
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
+      Loader.Current.Directories.Add(Directory.GetCurrentDirectory());
+      Loader.Current.Compose();
     }
 
     public IConfiguration Configuration { get; }
@@ -31,6 +35,9 @@ namespace AWG.api
     {
 
       services.AddEntityFrameworkNpgsql();
+
+      foreach (var m in Loader.Current.Modules)
+        m.ConfigureServices(services);
 
       services.AddControllers();
 
