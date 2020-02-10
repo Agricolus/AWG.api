@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using AWG.Common;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AWG.api.AppStartup
 {
@@ -20,6 +21,8 @@ namespace AWG.api.AppStartup
     [ImportMany]
     public IEnumerable<IModule> Modules { get; private set; }
 
+    public IEnumerable<Assembly> Assemblies { get; private set; }
+
     public void Compose()
     {
       // Catalogs does not exists in Dotnet Core, so you need to manage your own.
@@ -27,10 +30,12 @@ namespace AWG.api.AppStartup
 
       // All dlls in given directories
       foreach (var dir in this.Directories)
-        assemblies.AddRange(Directory.GetFiles(dir, "*.dll", SearchOption.TopDirectoryOnly)
+        assemblies.AddRange(Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories)
             .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
             // Ensure that the assembly contains an implementation for the given type.
             .Where(s => s.GetTypes().Where(p => typeof(IModule).IsAssignableFrom(p)).Any()));
+
+      this.Assemblies = assemblies;
 
       var configuration = new ContainerConfiguration().WithAssemblies(assemblies);
       using (var container = configuration.CreateContainer())
@@ -38,6 +43,12 @@ namespace AWG.api.AppStartup
         Modules = container.GetExports<IModule>();
       }
 
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+      foreach (var m in this.Modules)
+        m.ConfigureServices(services);
     }
   }
 }

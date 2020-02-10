@@ -4,7 +4,7 @@ using AWG.Common;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AWG.Measures.api
+namespace AWG.Stations.api
 {
   [Export(typeof(IModule))]
   public class Module : IModule

@@ -36,8 +36,7 @@ namespace AWG.api
 
       services.AddEntityFrameworkNpgsql();
 
-      foreach (var m in Loader.Current.Modules)
-        m.ConfigureServices(services);
+      Loader.Current.ConfigureServices(services);
 
       services.AddControllers();
 
