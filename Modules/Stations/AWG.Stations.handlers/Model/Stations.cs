@@ -1,9 +1,14 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AWG.Stations.handlers.Model
 {
-  public class Stations
+  [Table("Stations")]
+  public class Station
   {
+    [Key]
+    public long _Id { get; set; }
     public string Id { get; set; }
     public string Source { get; set; }
     public string DataProvider { get; set; }

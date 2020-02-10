@@ -9,6 +9,6 @@ namespace AWG.Stations.handlers.Model
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.UseNpgsql("Host=docker.agricolus.com;Database=awg;Username=postgres;Password=123456/AP");
 
-    public virtual DbSet<Stations> Stations { get; set; }
+    public virtual DbSet<Station> Stations { get; set; }
   }
 }

@@ -10,6 +10,7 @@ namespace AWG.Measures.handlers.Model
   {
 
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long _id { get; set; }
 
     [StringLength(50)]
