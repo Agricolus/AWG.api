@@ -14,6 +14,10 @@ namespace AWG.Stations.handlers.Model
 
   public class StationsContext : DbContext
   {
+
+    public StationsContext() { }
+    public StationsContext(DbContextOptions<StationsContext> options) : base(options) { }
+
     public virtual DbSet<Station> Stations { get; set; }
   }
 }

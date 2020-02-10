@@ -14,6 +14,9 @@ namespace AWG.Measures.Handlers.Model
   public class MeasuresContext : DbContext
   {
 
+    public MeasuresContext() { }
+    public MeasuresContext(DbContextOptions<MeasuresContext> options) : base(options) { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       base.OnModelCreating(modelBuilder);
