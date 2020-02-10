@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using AWG.Common;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AWG.api.AppStartup
@@ -45,10 +46,10 @@ namespace AWG.api.AppStartup
 
     }
 
-    public void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
       foreach (var m in this.Modules)
-        m.ConfigureServices(services);
+        m.ConfigureServices(services, configuration);
     }
   }
 }
