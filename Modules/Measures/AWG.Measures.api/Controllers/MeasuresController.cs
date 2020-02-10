@@ -22,6 +22,12 @@ namespace AWG.Measures.API.Controllers
       this.mediator = mediator;
     }
 
+    [HttpGet]
+    public IActionResult Test()
+    {
+      return Ok();
+    }
+
     [Route("last"), HttpGet]
     public async Task<MeasureDetail> GetLastMeasure(string stationId)
     {

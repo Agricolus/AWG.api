@@ -1,19 +1,19 @@
 using System.Composition;
 using AWG.Common;
-using AWG.Measures.handlers.Model;
+using AWG.Stations.handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AWG.Measures.Handlers
+namespace AWG.Stations.handlers
 {
   [Export(typeof(IModule))]
   public class Module : IModule
   {
-
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
-      services.AddDbContext<MeasturesContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
+      services.AddDbContext<StationsContext>(options =>
+         options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
     }
   }
 }
