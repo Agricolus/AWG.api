@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using AWG.FIWARE.DataModels;
 
-namespace AWG.Measures.handlers.Model
+namespace AWG.Measures.Handlers.Model
 {
   [Table("WeatherMeasures")]
   public class WeatherMeasure

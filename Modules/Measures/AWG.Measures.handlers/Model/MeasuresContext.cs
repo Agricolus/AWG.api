@@ -1,9 +1,9 @@
-using System.Data.Common;
+using AWG.Measures.Handlers.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace AWG.Measures.handlers.Model
+namespace AWG.Measures.Handlers.Model
 {
-  public class MeasturesContext : DbContext
+  public class MeasuresContext : DbContext
   {
     public virtual DbSet<WeatherMeasure> WeatherMeasures { get; set; }
   }

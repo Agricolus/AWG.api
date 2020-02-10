@@ -1,11 +1,11 @@
 using System.Composition;
 using AWG.Common;
-using AWG.Measures.handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AWG.Measures.Handlers.Model;
 
-namespace AWG.Measures.handlers
+namespace AWG.Measures.Handlers
 {
   [Export(typeof(IModule))]
   public class Module : IModule
@@ -13,7 +13,7 @@ namespace AWG.Measures.handlers
 
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
-      services.AddDbContext<MeasturesContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
+      services.AddDbContext<MeasuresContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
     }
   }
 }
