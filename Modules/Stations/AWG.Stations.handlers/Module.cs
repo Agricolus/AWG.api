@@ -2,7 +2,7 @@ using System.Composition;
 using AWG.Common;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AWG.Measures.handlers
+namespace AWG.Stations.handlers
 {
   [Export(typeof(IModule))]
   public class Module : IModule
