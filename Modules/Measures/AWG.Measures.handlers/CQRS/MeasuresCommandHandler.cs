@@ -26,7 +26,7 @@ namespace AWG.Measures.handlers.Command
 
     public async Task<fiware.WeatherObserved> Handle(AddMeasure request, CancellationToken cancellationToken)
     {
-      var measure = db.WeatherMeasures.Where(m => m.RefDevice == request.RefDevice && m.DateObserved == request.DateObserved).FirstOrDefault();
+      var measure = db.WeatherMeasures.Where(m => m.RefDevice == request.RefDevice && m.Id == request.Id).FirstOrDefault();
 
       if (measure == null)
       {
