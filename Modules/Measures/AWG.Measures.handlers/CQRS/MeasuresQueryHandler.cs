@@ -20,13 +20,15 @@ namespace AWG.Measures.handlers.Query
                                       IRequestHandler<GetWeeklyMeasures, IEnumerable<WeeklyMeasureDetail>>,
                                       IRequestHandler<GetMonthlyMeasures, IEnumerable<MonthlyMeasureDetail>>
   {
-    private MeasuresContext db;
+    private readonly MeasuresContext db;
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
-    public MeasuresQueryHandler(MeasuresContext db, IMediator mediator)
+    public MeasuresQueryHandler(MeasuresContext db, IMediator mediator, IMapper mapper)
     {
       this.db = db;
       this.mediator = mediator;
+      this.mapper = mapper;
     }
 
     public async Task<fiware.WeatherObserved> Handle(GetLastMeasure request, CancellationToken cancellationToken)
@@ -36,7 +38,7 @@ namespace AWG.Measures.handlers.Query
                           orderby m.DateObserved descending
                           select m).Take(1).FirstOrDefaultAsync();
 
-      return Mapper.Map<fiware.WeatherObserved>(result);
+      return mapper.Map<fiware.WeatherObserved>(result);
     }
 
     public async Task<IEnumerable<fiware.WeatherObserved>> Handle(GetMeasuresList request, CancellationToken cancellationToken)
@@ -45,7 +47,7 @@ namespace AWG.Measures.handlers.Query
                           where m.DateObserved >= request.FromDate &&
                                 m.DateObserved < request.ToDate &&
                                 m.RefDevice == request.StationId
-                          select m).ProjectTo<fiware.WeatherObserved>().ToListAsync();
+                          select m).ProjectTo<fiware.WeatherObserved>(mapper.ConfigurationProvider).ToListAsync();
 
       return result;
     }

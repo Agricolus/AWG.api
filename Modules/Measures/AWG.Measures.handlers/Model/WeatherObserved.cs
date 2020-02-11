@@ -12,7 +12,7 @@ namespace AWG.Measures.handlers.Model
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public long _id { get; set; }
+    public long _internalId { get; set; }
 
     [Index("weather_unique", 1)]
     [StringLength(50)]
@@ -23,10 +23,15 @@ namespace AWG.Measures.handlers.Model
 
     [StringLength(50)]
     public string Name { get; set; }
-    public string Location { get; set; }
+
+    [NotMapped]
+    public object Location { get; set; }
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public string Address { get; set; }
+
+    [NotMapped]
+    public object Address { get; set; }
+
     [Index("weather_date", 1)]
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }
@@ -46,7 +51,8 @@ namespace AWG.Measures.handlers.Model
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
 
-    public fiware.PressureTendencyEnum PressureTendency { get; set; }
+    [NotMapped]
+    public object PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

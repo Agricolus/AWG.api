@@ -14,35 +14,37 @@ namespace AWG.Stations.handlers.Command
                                         IRequestHandler<UpdateStation, fiware.Device>,
                                         IRequestHandler<DeleteStation>
   {
-    private StationsContext db;
+    private readonly StationsContext db;
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
-    public StationsCommandHandler(StationsContext db, IMediator mediator)
+    public StationsCommandHandler(StationsContext db, IMediator mediator, IMapper mapper)
     {
       this.db = db;
       this.mediator = mediator;
+      this.mapper = mapper;
     }
 
     public async Task<fiware.Device> Handle(CreateStation request, CancellationToken cancellationToken)
     {
-      var station = Mapper.Map<Model.Station>(request);
+      var station = mapper.Map<Model.Station>(request);
 
       db.Stations.Add(station);
 
       await db.SaveChangesAsync();
 
-      return Mapper.Map<fiware.Device>(station);
+      return mapper.Map<fiware.Device>(station);
     }
 
     public async Task<fiware.Device> Handle(UpdateStation request, CancellationToken cancellationToken)
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
-      station = Mapper.Map<Model.Station>(request);
+      station = mapper.Map<Model.Station>(request);
 
       await db.SaveChangesAsync();
 
-      return Mapper.Map<fiware.Device>(station);
+      return mapper.Map<fiware.Device>(station);
     }
 
     public async Task<Unit> Handle(DeleteStation request, CancellationToken cancellationToken)

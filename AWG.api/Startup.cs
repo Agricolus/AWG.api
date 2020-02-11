@@ -16,6 +16,7 @@ using MediatR;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using AWG.api.AppStartup;
+using AutoMapper;
 
 namespace AWG.api
 {
@@ -38,7 +39,9 @@ namespace AWG.api
 
       Loader.Current.ConfigureServices(services, this.Configuration);
 
-      services.AddControllers();
+      services.AddControllers().AddNewtonsoftJson();
+
+      services.AddAutoMapper(Loader.Current.Assemblies);
 
       services.AddSwaggerGen(g =>
       {

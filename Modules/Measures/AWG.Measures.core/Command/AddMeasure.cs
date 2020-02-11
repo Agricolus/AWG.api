@@ -14,7 +14,7 @@ namespace AWG.Measures.core.Command
     public DateTime DateCreated { get; set; }
     public string Name { get; set; }
     public object Location { get; set; }
-    public string Address { get; set; }
+    public object Address { get; set; }
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }
     public string RefDevice { get; set; }
@@ -28,7 +28,7 @@ namespace AWG.Measures.core.Command
     public double WindDirection { get; set; }
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
-    public PressureTendencyEnum PressureTendency { get; set; }
+    public object PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

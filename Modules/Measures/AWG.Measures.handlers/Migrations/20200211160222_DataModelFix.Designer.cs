@@ -3,15 +3,17 @@ using System;
 using AWG.Measures.handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AWG.Measures.handlers.Migrations
 {
     [DbContext(typeof(MigrationContext))]
-    partial class MigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20200211160222_DataModelFix")]
+    partial class DataModelFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace AWG.Measures.handlers.Migrations
 
             modelBuilder.Entity("AWG.Measures.handlers.Model.WeatherMeasure", b =>
                 {
-                    b.Property<long>("_internalId")
+                    b.Property<long>("_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -101,7 +103,7 @@ namespace AWG.Measures.handlers.Migrations
                     b.Property<double>("WindSpeed")
                         .HasColumnType("double precision");
 
-                    b.HasKey("_internalId");
+                    b.HasKey("_id");
 
                     b.HasIndex("RefDevice", "DateObserved")
                         .HasName("weather_date");

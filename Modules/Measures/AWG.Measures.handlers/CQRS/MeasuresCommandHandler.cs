@@ -13,13 +13,15 @@ namespace AWG.Measures.handlers.Command
 {
   public class MeasuresCommandHandler : IRequestHandler<AddMeasure, fiware.WeatherObserved>
   {
-    private MeasuresContext db;
+    private readonly MeasuresContext db;
     private readonly IMediator mediator;
+    private readonly IMapper mapper;
 
-    public MeasuresCommandHandler(MeasuresContext db, IMediator mediator)
+    public MeasuresCommandHandler(MeasuresContext db, IMediator mediator, IMapper mapper)
     {
       this.db = db;
       this.mediator = mediator;
+      this.mapper = mapper;
     }
 
     public async Task<fiware.WeatherObserved> Handle(AddMeasure request, CancellationToken cancellationToken)
@@ -28,19 +30,19 @@ namespace AWG.Measures.handlers.Command
 
       if (measure == null)
       {
-        measure = Mapper.Map<WeatherMeasure>(request);
+        measure = mapper.Map<WeatherMeasure>(request);
         measure.DateCreated = DateTime.UtcNow;
         db.WeatherMeasures.Add(measure);
       }
       else
       {
-        Mapper.Map(request, measure);
+        mapper.Map(request, measure);
       }
 
       measure.DateModified = DateTime.UtcNow;
 
       await db.SaveChangesAsync();
-      return Mapper.Map<fiware.WeatherObserved>(measure);
+      return mapper.Map<fiware.WeatherObserved>(measure);
     }
   }
 }

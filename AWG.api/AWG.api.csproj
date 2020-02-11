@@ -11,11 +11,12 @@
     <PackageReference Include="MediatR" Version="8.0.0"/>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0"/>
     <PackageReference Include="System.Composition" Version="1.4.0"/>
-    <PackageReference Include="AutoMapper" Version="8.1.1"/>
     <PackageReference Include="Toolbelt.EntityFrameworkCore.IndexAttribute" Version="3.1.0"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
     <PackageReference Include="GeoJSON" Version="2.1.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj"/>
