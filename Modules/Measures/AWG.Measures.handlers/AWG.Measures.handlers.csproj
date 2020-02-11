@@ -14,6 +14,7 @@
     <PackageReference Include="Toolbelt.EntityFrameworkCore.IndexAttribute" Version="3.1.0"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
+    <PackageReference Include="GeoJSON" Version="2.1.0"/>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

@@ -7,10 +7,11 @@ using System.Diagnostics;
 using AWG.Measures.handlers.Model;
 using AWG.Measures.core.Command;
 using fiware = AWG.FIWARE.DataModels;
+using AutoMapper;
 
 namespace AWG.Measures.handlers.Command
 {
-  public class MeasuresCommandHandler : IRequestHandler<AddMeasure>
+  public class MeasuresCommandHandler : IRequestHandler<AddMeasure, fiware.WeatherObserved>
   {
     private MeasuresContext db;
     private readonly IMediator mediator;
@@ -21,115 +22,25 @@ namespace AWG.Measures.handlers.Command
       this.mediator = mediator;
     }
 
-    public async Task<Unit> Handle(AddMeasure request, CancellationToken cancellationToken)
+    public async Task<fiware.WeatherObserved> Handle(AddMeasure request, CancellationToken cancellationToken)
     {
-      var measure = db.WeatherMeasures.Where(m => m.RefDevice == request.StationId && m.DateObserved == request.Date).FirstOrDefault();
+      var measure = db.WeatherMeasures.Where(m => m.RefDevice == request.RefDevice && m.DateObserved == request.DateObserved).FirstOrDefault();
 
       if (measure == null)
       {
-        measure = new WeatherMeasure()
-        {
-          //Id = ,
-          //DataProvider = ,
-          DateModified = DateTime.UtcNow,
-          DateCreated = DateTime.UtcNow,
-          //Name = ,
-          //Address = ,
-          DateObserved = request.Date,
-          //Source = ,
-          RefDevice = request.StationId,
-          //RefPointOfInterest = ,
-        };
-
+        measure = Mapper.Map<WeatherMeasure>(request);
+        measure.DateCreated = DateTime.UtcNow;
         db.WeatherMeasures.Add(measure);
-
-        //station.LastSyncronizationDate = request.Date;
       }
       else
       {
-        measure.DateObserved = DateTime.UtcNow;
-
-        //station.LastSyncronizationDate = request.Date;
+        Mapper.Map(request, measure);
       }
 
-      //station.NextAllowedSyncronizationDate = DateTime.UtcNow.AddMinutes(10);
-
-      foreach (var d in request.Data)
-      {
-        if (d.SensorName == nameof(measure.WeatherType))
-        {
-          measure.WeatherType = (fiware.WeatherTypeEnum)d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.DewPoint))
-        {
-          measure.DewPoint = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.Visibility))
-        {
-          measure.Visibility = (fiware.WeatherMeasureVisibilityEnum)d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.Temperature))
-        {
-          measure.Temperature = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.RelativeHumidity))
-        {
-          measure.RelativeHumidity = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.Precipitation))
-        {
-          measure.Precipitation = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.WindDirection))
-        {
-          measure.WindDirection = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.WindSpeed))
-        {
-          measure.WindSpeed = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.AtmosphericPressure))
-        {
-          measure.AtmosphericPressure = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.PressureTendency))
-        {
-          measure.PressureTendency = (fiware.PressureTendencyEnum)d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.SolarRadiation))
-        {
-          measure.SolarRadiation = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.Illuminance))
-        {
-          measure.Illuminance = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.StreamGauge))
-        {
-          measure.StreamGauge = d.Value;
-        }
-
-        if (d.SensorName == nameof(measure.SnowHeight))
-        {
-          measure.SnowHeight = d.Value;
-        }
-      }
+      measure.DateModified = DateTime.UtcNow;
 
       await db.SaveChangesAsync();
-
-      return Unit.Value;
+      return Mapper.Map<fiware.WeatherObserved>(measure);
     }
   }
 }

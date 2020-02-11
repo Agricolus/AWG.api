@@ -25,14 +25,9 @@ namespace AWG.Measures.api.Controllers
     }
 
     [Route(""), HttpPost]
-    public async Task<IActionResult> PostMeasure([FromBody] MeasureData model)
+    public async Task<IActionResult> PostMeasure([FromBody] AddMeasure model)
     {
-      return Ok(await mediator.Send(new AddMeasure()
-      {
-        StationId = model.StationId,
-        Date = model.Date,
-        Data = model.Datas
-      }));
+      return Ok(await mediator.Send(model));
     }
 
     [Route("last"), HttpGet]

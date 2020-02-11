@@ -21,10 +21,6 @@ namespace AWG.Measures.core.Dto
     public double? AvgRelativeHumidity { get; set; }
     public double? MaxRelativeHumidity { get; set; }
     public double? WindDirection { get; set; }
-    //public double? LeafWetness { get; set; }
-    //public double? WatermarkSoilMoisture { get; set; }
-    //public double? AvgDrybulbTemperature { get; set; }
-    //public double? MinDrybulbTemperature { get; set; }
-    //public double? MaxDrybulbTemperature { get; set; }
+
   }
 }

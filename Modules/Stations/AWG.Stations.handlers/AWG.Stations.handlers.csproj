@@ -8,6 +8,7 @@
     <PackageReference Include="AutoMapper" Version="8.1.1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
+    <PackageReference Include="GeoJSON" Version="2.1.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj"/>
