@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AWG.Measures.Core.Query;
 using AWG.Measures.Core.Dto;
+using AWG.Measures.Core.Command;
+using Newtonsoft.Json;
 
 using fiware = AWG.FIWARE.DataModels;
 
@@ -22,6 +24,17 @@ namespace AWG.Measures.API.Controllers
     {
       this.logger = logger;
       this.mediator = mediator;
+    }
+
+    [Route(""), HttpPost]
+    public async Task<IActionResult> PostMeasure([FromBody] MeasureData model)
+    {
+      return Ok(await mediator.Send(new AddMeasure()
+      {
+        StationId = model.StationId,
+        Date = model.Date,
+        Data = model.Datas
+      }));
     }
 
     [Route("last"), HttpGet]

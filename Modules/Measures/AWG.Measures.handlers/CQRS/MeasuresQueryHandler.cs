@@ -15,16 +15,16 @@ using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Measures.Handlers.Query
 {
-  public class QueryHandler : IRequestHandler<GetLastMeasure, fiware.WeatherObserved>,
-                              IRequestHandler<GetMeasuresList, IEnumerable<fiware.WeatherObserved>>,
-                              IRequestHandler<GetDailyMeasures, IEnumerable<DailyMeasureDetail>>,
-                              IRequestHandler<GetWeeklyMeasures, IEnumerable<WeeklyMeasureDetail>>,
-                              IRequestHandler<GetMonthlyMeasures, IEnumerable<MonthlyMeasureDetail>>
+  public class MeasuresQueryHandler : IRequestHandler<GetLastMeasure, fiware.WeatherObserved>,
+                                      IRequestHandler<GetMeasuresList, IEnumerable<fiware.WeatherObserved>>,
+                                      IRequestHandler<GetDailyMeasures, IEnumerable<DailyMeasureDetail>>,
+                                      IRequestHandler<GetWeeklyMeasures, IEnumerable<WeeklyMeasureDetail>>,
+                                      IRequestHandler<GetMonthlyMeasures, IEnumerable<MonthlyMeasureDetail>>
   {
     private MeasuresContext db;
     private readonly IMediator mediator;
 
-    public QueryHandler(MeasuresContext db, IMediator mediator)
+    public MeasuresQueryHandler(MeasuresContext db, IMediator mediator)
     {
       this.db = db;
       this.mediator = mediator;
