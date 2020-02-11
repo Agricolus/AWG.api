@@ -5,10 +5,10 @@ using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Stations.core.CQRS.Command
 {
-  public class UpdateStation : IRequest<fiware.DeviceModel>
+  public class UpdateStation : IRequest<fiware.Device>
   {
     public string Id { get; set; }
-    public string Type { get; private set; } = "DeviceModel";
+    public string Type { get; private set; } = "Device";
     public string Source { get; set; }
     public string DataProvider { get; set; }
     public string Category { get; set; }

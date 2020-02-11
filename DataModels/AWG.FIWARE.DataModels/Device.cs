@@ -1,28 +1,24 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
-namespace AWG.Stations.handlers.Model
+namespace AWG.FIWARE.DataModels
 {
-  [Table("Stations")]
-  public class Station
+  public class Device
   {
-    [Key]
-    public long _Id { get; set; }
     public string Id { get; set; }
     public string Type { get; private set; } = "Device";
     public string Source { get; set; }
     public Uri DataProvider { get; set; }
-    public string Category { get; set; }
-    public string ControlledProperty { get; set; }
-    public string ControlledAsset { get; set; }
+    public IEnumerable<string> Category { get; set; }
+    public IEnumerable<string> ControlledProperty { get; set; }
+    public IEnumerable<string> ControlledAsset { get; set; }
     public string Mnc { get; set; }
     public string Mcc { get; set; }
-    public string MacAddress { get; set; }
-    public string IpAddress { get; set; }
-    public string SupportedProtocol { get; set; }
-    public string Configuration { get; set; }
-    public string Location { get; set; }
+    public IEnumerable<string> MacAddress { get; set; }
+    public IEnumerable<string> IpAddress { get; set; }
+    public IEnumerable<string> SupportedProtocol { get; set; }
+    public object Configuration { get; set; }
+    public object Location { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public DateTime? DateInstalled { get; set; }
@@ -34,7 +30,7 @@ namespace AWG.Stations.handlers.Model
     public string OsVersion { get; set; }
     public DateTime? DateLastCalibration { get; set; }
     public string SerialNumber { get; set; }
-    public string Provider { get; set; }
+    public object Provider { get; set; }
     public string RefDeviceModel { get; set; }
     public double? BatteryLevel { get; set; }
     public double? Rssi { get; set; }
@@ -43,6 +39,6 @@ namespace AWG.Stations.handlers.Model
     public string Value { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
-    public string Owner { get; set; }
+    public List<object> Owner { get; set; }
   }
 }

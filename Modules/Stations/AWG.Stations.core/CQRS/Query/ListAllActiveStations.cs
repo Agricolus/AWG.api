@@ -4,7 +4,7 @@ using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Stations.core.Query
 {
-  public class ListAllActiveStations : IRequest<IEnumerable<fiware.DeviceModel>>
+  public class ListAllActiveStations : IRequest<IEnumerable<fiware.Device>>
   {
   }
 }
