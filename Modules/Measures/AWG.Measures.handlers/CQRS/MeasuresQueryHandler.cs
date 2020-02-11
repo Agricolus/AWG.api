@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
-using AWG.Measures.Core.Query;
-using AWG.Measures.Core.Dto;
-using AWG.Measures.Handlers.Model;
+using AWG.Measures.core.Query;
+using AWG.Measures.core.Dto;
+using AWG.Measures.handlers.Model;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-
 using fiware = AWG.FIWARE.DataModels;
 
-namespace AWG.Measures.Handlers.Query
+namespace AWG.Measures.handlers.Query
 {
   public class MeasuresQueryHandler : IRequestHandler<GetLastMeasure, fiware.WeatherObserved>,
                                       IRequestHandler<GetMeasuresList, IEnumerable<fiware.WeatherObserved>>,

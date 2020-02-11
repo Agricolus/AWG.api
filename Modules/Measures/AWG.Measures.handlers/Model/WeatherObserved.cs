@@ -1,10 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AWG.FIWARE.DataModels;
+using fiware = AWG.FIWARE.DataModels;
 using Toolbelt.ComponentModel.DataAnnotations.Schema;
 
-namespace AWG.Measures.Handlers.Model
+namespace AWG.Measures.handlers.Model
 {
   [Table("WeatherMeasures")]
   public class WeatherMeasure
@@ -32,10 +32,10 @@ namespace AWG.Measures.Handlers.Model
     [Index("weather_unique", 0)]
     public string RefDevice { get; set; }
     public string RefPointOfInterest { get; set; }
-    public WeatherTypeEnum WeatherType { get; set; }
+    public fiware.WeatherTypeEnum WeatherType { get; set; }
     public double DewPoint { get; set; }
     [StringLength(20)]
-    public WeatherMeasureVisibilityEnum Visibility { get; set; }
+    public fiware.WeatherMeasureVisibilityEnum Visibility { get; set; }
     public double Temperature { get; set; }
     public double RelativeHumidity { get; set; }
     public double Precipitation { get; set; }
@@ -43,7 +43,7 @@ namespace AWG.Measures.Handlers.Model
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
 
-    public PressureTendencyEnum PressureTendency { get; set; }
+    public fiware.PressureTendencyEnum PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

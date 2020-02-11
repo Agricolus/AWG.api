@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using fiware = AWG.FIWARE.DataModels;
 
-namespace AWG.Measures.Core.Query
+namespace AWG.Measures.core.Query
 {
   public class GetMeasuresList : IRequest<IEnumerable<fiware.WeatherObserved>>
   {

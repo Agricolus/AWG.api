@@ -2,7 +2,7 @@
 using MediatR;
 using System;
 
-namespace AWG.Measures.Core.Command
+namespace AWG.Measures.core.Command
 {
   public class AddMeasure : IRequest
   {

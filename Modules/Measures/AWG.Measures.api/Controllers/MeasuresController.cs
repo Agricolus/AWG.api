@@ -4,14 +4,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AWG.Measures.Core.Query;
-using AWG.Measures.Core.Dto;
-using AWG.Measures.Core.Command;
-using Newtonsoft.Json;
-
+using AWG.Measures.core.Query;
+using AWG.Measures.core.Dto;
+using AWG.Measures.core.Command;
 using fiware = AWG.FIWARE.DataModels;
 
-namespace AWG.Measures.API.Controllers
+namespace AWG.Measures.api.Controllers
 {
   [ApiController]
   [Route("api/measures")]

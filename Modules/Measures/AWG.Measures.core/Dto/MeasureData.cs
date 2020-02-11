@@ -1,7 +1,7 @@
 ﻿using System;
 using AWG.Measures.Dto;
 
-namespace AWG.Measures.Core.Dto
+namespace AWG.Measures.core.Dto
 {
   public class MeasureData
   {

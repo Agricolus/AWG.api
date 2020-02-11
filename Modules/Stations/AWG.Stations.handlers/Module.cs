@@ -12,8 +12,7 @@ namespace AWG.Stations.handlers
   {
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
-      services.AddDbContext<StationsContext>(options =>
-         options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
+      services.AddDbContext<StationsContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
     }
   }
 }

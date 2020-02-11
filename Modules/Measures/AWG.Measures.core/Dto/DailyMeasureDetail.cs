@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AWG.Measures.Core.Dto
+namespace AWG.Measures.core.Dto
 {
   public class DailyMeasureDetail
   {
