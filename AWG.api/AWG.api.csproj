@@ -2,26 +2,25 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="MediatR" Version="8.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="System.Composition" Version="1.4.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0"/>
+    <PackageReference Include="MediatR" Version="8.0.0"/>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0"/>
+    <PackageReference Include="System.Composition" Version="1.4.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj" />
-    <ProjectReference Include="..\Modules\Stations\AWG.Stations.handlers\AWG.Stations.handlers.csproj" />
-    <ProjectReference Include="..\Modules\Stations\AWG.Stations.core\AWG.Stations.core.csproj" />
-    <ProjectReference Include="..\Modules\Stations\AWG.Stations.api\AWG.Stations.api.csproj" />
-    <ProjectReference Include="..\Modules\Measures\AWG.Measures.api\AWG.Measures.api.csproj" />
-    <ProjectReference Include="..\Modules\Measures\AWG.Measures.core\AWG.Measures.core.csproj" />
-    <ProjectReference Include="..\Modules\Measures\AWG.Measures.handlers\AWG.Measures.handlers.csproj" />
+    <ProjectReference Include="..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj"/>
+    <ProjectReference Include="..\Modules\Stations\AWG.Stations.handlers\AWG.Stations.handlers.csproj"/>
+    <ProjectReference Include="..\Modules\Stations\AWG.Stations.core\AWG.Stations.core.csproj"/>
+    <ProjectReference Include="..\Modules\Stations\AWG.Stations.api\AWG.Stations.api.csproj"/>
+    <ProjectReference Include="..\Modules\Measures\AWG.Measures.api\AWG.Measures.api.csproj"/>
+    <ProjectReference Include="..\Modules\Measures\AWG.Measures.core\AWG.Measures.core.csproj"/>
+    <ProjectReference Include="..\Modules\Measures\AWG.Measures.handlers\AWG.Measures.handlers.csproj"/>
   </ItemGroup>
 </Project>
