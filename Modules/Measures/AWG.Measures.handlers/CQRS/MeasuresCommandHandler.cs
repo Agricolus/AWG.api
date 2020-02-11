@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
-using AWG.Measures.Handlers.Model;
-using AWG.Measures.Core.Command;
-using AWG.FIWARE.DataModels;
+using AWG.Measures.handlers.Model;
+using AWG.Measures.core.Command;
+using fiware = AWG.FIWARE.DataModels;
 
-namespace AWG.Measures.Handlers.Command
+namespace AWG.Measures.handlers.Command
 {
   public class MeasuresCommandHandler : IRequestHandler<AddMeasure>
   {
@@ -58,7 +58,7 @@ namespace AWG.Measures.Handlers.Command
       {
         if (d.SensorName == nameof(measure.WeatherType))
         {
-          measure.WeatherType = (WeatherTypeEnum)d.Value;
+          measure.WeatherType = (fiware.WeatherTypeEnum)d.Value;
         }
 
         if (d.SensorName == nameof(measure.DewPoint))
@@ -68,7 +68,7 @@ namespace AWG.Measures.Handlers.Command
 
         if (d.SensorName == nameof(measure.Visibility))
         {
-          measure.Visibility = (WeatherMeasureVisibilityEnum)d.Value;
+          measure.Visibility = (fiware.WeatherMeasureVisibilityEnum)d.Value;
         }
 
         if (d.SensorName == nameof(measure.Temperature))
@@ -103,7 +103,7 @@ namespace AWG.Measures.Handlers.Command
 
         if (d.SensorName == nameof(measure.PressureTendency))
         {
-          measure.PressureTendency = (PressureTendencyEnum)d.Value;
+          measure.PressureTendency = (fiware.PressureTendencyEnum)d.Value;
         }
 
         if (d.SensorName == nameof(measure.SolarRadiation))

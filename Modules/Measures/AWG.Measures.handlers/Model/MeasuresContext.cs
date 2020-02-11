@@ -1,10 +1,8 @@
-using AWG.Measures.Handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Toolbelt.ComponentModel.DataAnnotations;
 
-namespace AWG.Measures.Handlers.Model
+namespace AWG.Measures.handlers.Model
 {
-
   public class MigrationContext : MeasuresContext
   {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -13,7 +11,6 @@ namespace AWG.Measures.Handlers.Model
 
   public class MeasuresContext : DbContext
   {
-
     public MeasuresContext() { }
     public MeasuresContext(DbContextOptions<MeasuresContext> options) : base(options) { }
 
@@ -24,7 +21,6 @@ namespace AWG.Measures.Handlers.Model
       // .. and invoke "BuildIndexesFromAnnotations"!
       modelBuilder.BuildIndexesFromAnnotations();
     }
-
 
     public virtual DbSet<WeatherMeasure> WeatherMeasures { get; set; }
   }

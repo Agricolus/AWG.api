@@ -3,9 +3,9 @@ using AWG.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AWG.Measures.Handlers.Model;
+using AWG.Measures.handlers.Model;
 
-namespace AWG.Measures.Handlers
+namespace AWG.Measures.handlers
 {
   [Export(typeof(IModule))]
   public class Module : IModule
