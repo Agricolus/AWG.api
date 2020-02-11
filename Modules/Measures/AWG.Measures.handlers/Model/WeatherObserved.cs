@@ -15,13 +15,13 @@ namespace AWG.Measures.handlers.Model
     public long _internalId { get; set; }
 
     [Index("weather_unique", 1)]
-    [StringLength(50)]
+    [StringLength(150)]
     public string Id { get; set; }
     public Uri DataProvider { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
 
-    [StringLength(50)]
+    [StringLength(150)]
     public string Name { get; set; }
 
     [NotMapped]
@@ -42,7 +42,7 @@ namespace AWG.Measures.handlers.Model
     public string RefPointOfInterest { get; set; }
     public fiware.WeatherTypeEnum WeatherType { get; set; }
     public double DewPoint { get; set; }
-    [StringLength(20)]
+
     public fiware.WeatherMeasureVisibilityEnum Visibility { get; set; }
     public double Temperature { get; set; }
     public double RelativeHumidity { get; set; }
