@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AWG.Stations.handlers.Command
 {
-  public class StationsCommandHandler : IRequestHandler<CreateStation, fiware.DeviceModel>,
-                                        IRequestHandler<UpdateStation, fiware.DeviceModel>,
+  public class StationsCommandHandler : IRequestHandler<CreateStation, fiware.Device>,
+                                        IRequestHandler<UpdateStation, fiware.Device>,
                                         IRequestHandler<DeleteStation>
   {
     private StationsContext db;
@@ -23,7 +23,7 @@ namespace AWG.Stations.handlers.Command
       this.mediator = mediator;
     }
 
-    public async Task<fiware.DeviceModel> Handle(CreateStation request, CancellationToken cancellationToken)
+    public async Task<fiware.Device> Handle(CreateStation request, CancellationToken cancellationToken)
     {
       var station = Mapper.Map<Model.Station>(request);
 
@@ -31,10 +31,10 @@ namespace AWG.Stations.handlers.Command
 
       await db.SaveChangesAsync();
 
-      return Mapper.Map<fiware.DeviceModel>(station);
+      return Mapper.Map<fiware.Device>(station);
     }
 
-    public async Task<fiware.DeviceModel> Handle(UpdateStation request, CancellationToken cancellationToken)
+    public async Task<fiware.Device> Handle(UpdateStation request, CancellationToken cancellationToken)
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
@@ -42,7 +42,7 @@ namespace AWG.Stations.handlers.Command
 
       await db.SaveChangesAsync();
 
-      return Mapper.Map<fiware.DeviceModel>(station);
+      return Mapper.Map<fiware.Device>(station);
     }
 
     public async Task<Unit> Handle(DeleteStation request, CancellationToken cancellationToken)

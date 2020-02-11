@@ -23,25 +23,25 @@ namespace AWG.Stations.api.Controllers
     }
 
     [Route(""), HttpGet]
-    public async Task<IEnumerable<fiware.DeviceModel>> GetAllActiveStations()
+    public async Task<IEnumerable<fiware.Device>> GetAllActiveStations()
     {
       return await mediator.Send(new ListAllActiveStations());
     }
 
     [Route("{id}"), HttpGet]
-    public async Task<fiware.DeviceModel> GetStation(string id)
+    public async Task<fiware.Device> GetStation(string id)
     {
       return await mediator.Send(new GetStation() { Id = id });
     }
 
     [Route("station"), HttpPost]
-    public async Task<fiware.DeviceModel> CreateStation(string organizationId, [FromBody] CreateStation model)
+    public async Task<fiware.Device> CreateStation(string organizationId, [FromBody] CreateStation model)
     {
       return await mediator.Send(model);
     }
 
     [Route("station/{id}"), HttpPut]
-    public async Task<fiware.DeviceModel> UpdateStation(string id, [FromBody] UpdateStation model)
+    public async Task<fiware.Device> UpdateStation(string id, [FromBody] UpdateStation model)
     {
       return await mediator.Send(model);
     }
