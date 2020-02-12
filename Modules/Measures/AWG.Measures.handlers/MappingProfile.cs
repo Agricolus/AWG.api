@@ -7,8 +7,7 @@ namespace AWG.Measures.handlers
 
     public MappingProfile()
     {
-      CreateMap<AWG.Measures.core.Command.AddMeasure, AWG.Measures.handlers.Model.WeatherMeasure>();
-      CreateMap<AWG.Measures.handlers.Model.WeatherMeasure, AWG.FIWARE.DataModels.WeatherObserved>();
+      CreateMap<AWG.Measures.handlers.Model.WeatherMeasure, AWG.FIWARE.DataModels.WeatherObserved>().ReverseMap();
     }
   }
 }

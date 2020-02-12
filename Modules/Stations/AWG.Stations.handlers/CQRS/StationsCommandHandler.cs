@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 namespace AWG.Stations.handlers.Command
 {
   public class StationsCommandHandler : IRequestHandler<CreateStation, fiware.Device>,
-                                        IRequestHandler<UpdateStation, fiware.Device>,
                                         IRequestHandler<DeleteStation>
   {
     private readonly StationsContext db;
@@ -27,20 +26,17 @@ namespace AWG.Stations.handlers.Command
 
     public async Task<fiware.Device> Handle(CreateStation request, CancellationToken cancellationToken)
     {
-      var station = mapper.Map<Model.Station>(request);
+      var station = await db.Stations.Where(f => f.Id == request.Model.Id).FirstOrDefaultAsync();
 
-      db.Stations.Add(station);
-
-      await db.SaveChangesAsync();
-
-      return mapper.Map<fiware.Device>(station);
-    }
-
-    public async Task<fiware.Device> Handle(UpdateStation request, CancellationToken cancellationToken)
-    {
-      var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
-
-      station = mapper.Map<Model.Station>(request);
+      if (station == null)
+      {
+        station = mapper.Map<Model.Station>(request.Model);
+        db.Stations.Add(station);
+      }
+      else
+      {
+        mapper.Map(request.Model, station);
+      }
 
       await db.SaveChangesAsync();
 

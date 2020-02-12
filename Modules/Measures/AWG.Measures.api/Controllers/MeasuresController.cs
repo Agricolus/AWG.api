@@ -24,10 +24,10 @@ namespace AWG.Measures.api.Controllers
       this.mediator = mediator;
     }
 
-    [Route(""), HttpPost]
-    public async Task<IActionResult> PostMeasure([FromBody] AddMeasure model)
+    [Route(""), HttpPost, HttpPut]
+    public async Task<IActionResult> PostMeasure([FromBody] fiware.WeatherObserved model)
     {
-      return Ok(await mediator.Send(model));
+      return Ok(await mediator.Send(new AddMeasure() { Model = model }));
     }
 
     [Route("last"), HttpGet]
