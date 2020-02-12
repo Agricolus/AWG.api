@@ -1,4 +1,5 @@
 using System;
+using BAMCIS.GeoJSON;
 
 /// <summary>
 /// Fiware WeatherObserver data model
@@ -17,8 +18,8 @@ namespace AWG.FIWARE.DataModels
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
     public string Name { get; set; }
-    public object Location { get; set; }
-    public object Address { get; set; }
+    public GeoJson Location { get; set; }
+    public Address Address { get; set; }
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }
     public string RefDevice { get; set; }

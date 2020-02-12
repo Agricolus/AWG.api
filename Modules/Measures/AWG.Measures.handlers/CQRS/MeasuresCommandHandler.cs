@@ -42,6 +42,8 @@ namespace AWG.Measures.handlers.Command
 
       await db.SaveChangesAsync();
 
+      await mediator.Publish(new UpdateMeasureNotification() { Id = request.Model.Id });
+
       return mapper.Map<fiware.WeatherObserved>(measure);
     }
   }

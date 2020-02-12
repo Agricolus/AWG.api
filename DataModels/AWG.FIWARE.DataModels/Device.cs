@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BAMCIS.GeoJSON;
 
 /// <summary>
 /// Fiware Device data model
@@ -25,7 +26,7 @@ namespace AWG.FIWARE.DataModels
     public IEnumerable<string> IpAddress { get; set; }
     public IEnumerable<string> SupportedProtocol { get; set; }
     public object Configuration { get; set; }
-    public object Location { get; set; }
+    public GeoJson Location { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public DateTime? DateInstalled { get; set; }
