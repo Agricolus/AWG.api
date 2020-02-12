@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using fiware = AWG.FIWARE.DataModels;
 using Toolbelt.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace AWG.Measures.handlers.Model
 {
   [Table("WeatherMeasures")]
   public class WeatherMeasure
   {
-
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long _internalId { get; set; }
@@ -17,6 +17,7 @@ namespace AWG.Measures.handlers.Model
     [Index("weather_unique", 1)]
     [StringLength(150)]
     public string Id { get; set; }
+    public string Type { get; private set; } = "WeatherObserved";
     public Uri DataProvider { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
@@ -26,11 +27,39 @@ namespace AWG.Measures.handlers.Model
 
     [NotMapped]
     public object Location { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
+    [Column("Location")]
+    public string LocationSerialized
+    {
+      get
+      {
+        return JsonConvert.SerializeObject(Location);
+      }
+      set
+      {
+        if (value != null)
+          Location = JsonConvert.DeserializeObject<object>(value);
+        else
+          Location = null;
+      }
+    }
 
     [NotMapped]
     public object Address { get; set; }
+    [Column("Address")]
+    public string AddressSerialized
+    {
+      get
+      {
+        return JsonConvert.SerializeObject(Address);
+      }
+      set
+      {
+        if (value != null)
+          Address = JsonConvert.DeserializeObject<object>(value);
+        else
+          Address = null;
+      }
+    }
 
     [Index("weather_date", 1)]
     public DateTime DateObserved { get; set; }
@@ -42,7 +71,6 @@ namespace AWG.Measures.handlers.Model
     public string RefPointOfInterest { get; set; }
     public fiware.WeatherTypeEnum WeatherType { get; set; }
     public double DewPoint { get; set; }
-
     public fiware.WeatherMeasureVisibilityEnum Visibility { get; set; }
     public double Temperature { get; set; }
     public double RelativeHumidity { get; set; }
@@ -53,6 +81,22 @@ namespace AWG.Measures.handlers.Model
 
     [NotMapped]
     public object PressureTendency { get; set; }
+    [Column("PressureTendency")]
+    public string PressureTendencySerialized
+    {
+      get
+      {
+        return JsonConvert.SerializeObject(PressureTendency);
+      }
+      set
+      {
+        if (value != null)
+          PressureTendency = JsonConvert.DeserializeObject<object>(value);
+        else
+          PressureTendency = null;
+      }
+    }
+
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

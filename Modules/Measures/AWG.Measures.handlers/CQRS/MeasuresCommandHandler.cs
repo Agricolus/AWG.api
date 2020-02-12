@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
-using System.Diagnostics;
 using AWG.Measures.handlers.Model;
 using AWG.Measures.core.Command;
 using fiware = AWG.FIWARE.DataModels;
@@ -42,6 +41,7 @@ namespace AWG.Measures.handlers.Command
       measure.DateModified = DateTime.UtcNow;
 
       await db.SaveChangesAsync();
+
       return mapper.Map<fiware.WeatherObserved>(measure);
     }
   }
