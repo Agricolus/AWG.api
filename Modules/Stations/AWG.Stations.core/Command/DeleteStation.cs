@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace AWG.Stations.core.CQRS.Command
+namespace AWG.Stations.core.Command
 {
   public class DeleteStation : IRequest
   {

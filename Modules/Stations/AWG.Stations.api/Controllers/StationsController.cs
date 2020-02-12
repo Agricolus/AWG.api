@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AWG.Stations.core.CQRS.Command;
+using AWG.Stations.core.Command;
 using AWG.Stations.core.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +35,7 @@ namespace AWG.Stations.api.Controllers
     }
 
     [Route("station"), HttpPost]
-    public async Task<fiware.Device> CreateStation(string organizationId, [FromBody] CreateStation model)
+    public async Task<fiware.Device> CreateStation([FromBody] CreateStation model)
     {
       return await mediator.Send(model);
     }
