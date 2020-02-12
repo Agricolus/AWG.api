@@ -18,7 +18,7 @@ namespace AWG.Stations.api
       mvcbuilder.PartManager.ApplicationParts.Add(new AssemblyPart(Assembly.GetExecutingAssembly()));
       mvcbuilder.AddNewtonsoftJson(options =>
       {
-        // options.SerializerSettings.Converters.Add(new FiwareNormalizedJsonConverter<fiware.Device>());
+        options.SerializerSettings.Converters.Add(new FiwareNormalizedJsonConverter<fiware.DeviceLD>());
       });
     }
   }

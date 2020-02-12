@@ -10,6 +10,10 @@ using BAMCIS.GeoJSON;
 
 namespace AWG.FIWARE.DataModels
 {
+
+  public class WeatherObservedLD : WeatherObserved
+  { }
+
   public class WeatherObserved
   {
     public string Id { get; set; }

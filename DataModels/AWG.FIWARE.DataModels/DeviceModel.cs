@@ -10,6 +10,12 @@ using System.Collections.Generic;
 
 namespace AWG.FIWARE.DataModels
 {
+
+  public class DeviceModelLD : DeviceModel
+  {
+
+  }
+
   public class DeviceModel
   {
     public string Id { get; set; }

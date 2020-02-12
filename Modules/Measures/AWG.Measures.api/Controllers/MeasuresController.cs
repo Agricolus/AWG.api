@@ -30,6 +30,12 @@ namespace AWG.Measures.api.Controllers
       return Ok(await mediator.Send(new AddMeasure() { Model = model }));
     }
 
+    [Route("~/api/measures-ld"), HttpPost, HttpPut]
+    public async Task<IActionResult> PostMeasure([FromBody] fiware.WeatherObservedLD model)
+    {
+      return Ok(await mediator.Send(new AddMeasure() { Model = model }));
+    }
+
     [Route("last"), HttpGet]
     public async Task<fiware.WeatherObserved> GetLastMeasure(string stationId)
     {

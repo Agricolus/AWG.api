@@ -34,13 +34,19 @@ namespace AWG.Stations.api.Controllers
       return await mediator.Send(new GetStation() { Id = id });
     }
 
-    [Route("station"), HttpPost, HttpPut]
+    [Route(""), HttpPost, HttpPut]
     public async Task<fiware.Device> CreateStation([FromBody] fiware.Device model)
     {
       return await mediator.Send(new CreateStation() { Model = model });
     }
 
-    [Route("station/{id}"), HttpDelete]
+    [Route("~/api/stations-ld"), HttpPost, HttpPut]
+    public async Task<fiware.Device> CreateStation([FromBody] fiware.DeviceLD model)
+    {
+      return await mediator.Send(new CreateStation() { Model = model });
+    }
+
+    [Route("{id}"), HttpDelete]
     public async Task<Unit> DeleteStation(string id)
     {
       return await mediator.Send(new DeleteStation() { Id = id });

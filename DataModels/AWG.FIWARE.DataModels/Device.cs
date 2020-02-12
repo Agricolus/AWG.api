@@ -11,6 +11,11 @@ using BAMCIS.GeoJSON;
 
 namespace AWG.FIWARE.DataModels
 {
+  public class DeviceLD : Device
+  {
+
+  }
+
   public class Device
   {
     public string Id { get; set; }
