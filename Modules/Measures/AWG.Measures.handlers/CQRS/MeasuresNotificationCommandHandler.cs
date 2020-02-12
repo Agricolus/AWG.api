@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System;
+﻿using System;
 using MediatR;
 using AWG.Measures.handlers.Model;
 using System.Threading.Tasks;
@@ -13,7 +11,6 @@ using BAMCIS.GeoJSON;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
-using AWG.FIWARE.DataModels;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 
@@ -48,19 +45,17 @@ namespace AWG.Measures.handlers.Command
       await db.SaveChangesAsync();
     }
 
-
     private void UpdateLocation(WeatherMeasure measure)
     {
       if (measure.Location != null)
+      {
         switch (measure.Location.Type)
         {
           case GeoJsonType.Point:
             var point = (Point)measure.Location;
-
             measure.Latitude = point.Coordinates.Latitude;
             measure.Longitude = point.Coordinates.Longitude;
             break;
-
           default:
             if (measure.Location.BoundingBox != null)
             {
@@ -69,19 +64,17 @@ namespace AWG.Measures.handlers.Command
             }
             break;
         }
+      }
     }
 
-    public async Task ResolveAddress(WeatherMeasure measure)
+    private async Task ResolveAddress(WeatherMeasure measure)
     {
       if (this.configuration["OSMGeocoding:EnableGeocodingForMeasures"] != "true") return;
 
-      // GEOCODING
       if (measure.Address != null)
-
+      {
         try
         {
-          // var baseUrl = $"https://nominatim.openstreetmap.org/?limit=1&format=json&q={measure.Address}";
-
           var uri = new StringBuilder(this.configuration["OSMGeocoding:OpenStreetMapURI"]);
           uri.Append("/search?limit=1&format=geojson");
 
@@ -91,11 +84,11 @@ namespace AWG.Measures.handlers.Command
           if (measure.Address.PostalCode != null) uri.Append($"&postalcode={measure.Address.PostalCode}");
           if (measure.Address.StreetAddress != null) uri.Append($"&street={measure.Address.StreetAddress}");
 
-
           using (HttpClient client = new HttpClient())
           {
             client.DefaultRequestHeaders.Add("Referer", "AWG");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             using (HttpResponseMessage res = await client.GetAsync(uri.ToString()))
             using (HttpContent content = res.Content)
             {
@@ -112,6 +105,7 @@ namespace AWG.Measures.handlers.Command
           Console.WriteLine(e.Message);
           Console.WriteLine(e.StackTrace);
         }
+      }
     }
   }
 }

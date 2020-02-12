@@ -40,7 +40,7 @@ namespace AWG.Stations.handlers.Command
 
       await db.SaveChangesAsync();
 
-      await mediator.Publish(new UpdateStationLocation() { Id = request.Model.Id });
+      await mediator.Publish(new UpdateStationNotification() { Id = request.Model.Id });
 
       return mapper.Map<fiware.Device>(station);
     }

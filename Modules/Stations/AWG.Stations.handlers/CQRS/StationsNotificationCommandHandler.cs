@@ -10,7 +10,7 @@ using BAMCIS.GeoJSON;
 
 namespace AWG.Stations.handlers.Command
 {
-  public class StationsNotificationCommandHandler : INotificationHandler<UpdateStationLocation>
+  public class StationsNotificationCommandHandler : INotificationHandler<UpdateStationNotification>
   {
     private readonly StationsContext db;
     private readonly IMediator mediator;
@@ -23,26 +23,38 @@ namespace AWG.Stations.handlers.Command
       this.mapper = mapper;
     }
 
-    public async Task Handle(UpdateStationLocation request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateStationNotification request, CancellationToken cancellationToken)
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
-      if (station == null || station.Location == null)
-        return;
+      if (station == null) return;
 
-      if (station.Location.Type == GeoJsonType.Point)
-      {
-        var point = (Point)station.Location;
-
-        station.Latitude = point.Coordinates.Latitude;
-        station.Longitude = point.Coordinates.Longitude;
-      }
-      else
-      {
-        // OTHER GEOMETRIES
-      }
+      if (station.Location != null)
+        UpdateLocation(station);
 
       await db.SaveChangesAsync();
+    }
+
+    private void UpdateLocation(Station station)
+    {
+      if (station.Location != null)
+      {
+        switch (station.Location.Type)
+        {
+          case GeoJsonType.Point:
+            var point = (Point)station.Location;
+            station.Latitude = point.Coordinates.Latitude;
+            station.Longitude = point.Coordinates.Longitude;
+            break;
+          default:
+            if (station.Location.BoundingBox != null)
+            {
+              station.Longitude = station.Location.BoundingBox.Where(i => i % 2 == 0).Average();
+              station.Latitude = station.Location.BoundingBox.Where(i => i % 2 == 1).Average();
+            }
+            break;
+        }
+      }
     }
   }
 }
