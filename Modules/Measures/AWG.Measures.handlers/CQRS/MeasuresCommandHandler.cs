@@ -35,7 +35,7 @@ namespace AWG.Measures.handlers.Command
       }
       else
       {
-        mapper.Map(request, measure);
+        mapper.Map(request.Model, measure);
       }
 
       measure.DateModified = DateTime.UtcNow;

@@ -13,22 +13,33 @@ namespace AWG.FIWARE.Serializers
     public override T ReadJson(JsonReader reader, Type objectType, T existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
       var jobject = JObject.ReadFrom(reader);
-      var values = jobject.ToDictionary(t => t.Path);
+      var values = jobject.ToDictionary(t => t.Path.ToLower());
       var target = new T();
+
       foreach (var p in typeof(T).GetProperties(BindingFlags.GetProperty | BindingFlags.SetProperty | BindingFlags.Public | BindingFlags.Instance))
       {
         JToken val;
-        if (values.TryGetValue(p.Name, out val))
+        if (values.TryGetValue(p.Name.ToLower(), out val))
         {
-          if (val.Type == JTokenType.Object && !p.PropertyType.IsClass)
+          try
           {
-            var result = val.ToObject<FiwareNormalzedProperty>();
-            if (result != null && result.Value != null)
-              p.SetValue(target, result.Value);
-          }
+            if (val.Type == JTokenType.Object && !p.PropertyType.IsClass)
+            {
+              var result = val.ToObject<FiwareNormalzedProperty>();
+              if (result != null && result.Value != null)
+                p.SetValue(target, result.Value);
 
-          // fallback -- all other properties will be deserialized in a standard way
-          p.SetValue(target, val.ToObject(p.PropertyType));
+              continue;
+            }
+
+            // fallback -- all other properties will be deserialized in a standard way
+            if (p.PropertyType != typeof(Object))
+              p.SetValue(target, val.ToObject(p.PropertyType));
+          }
+          catch (Exception ex)
+          {
+            throw new Exception($"Deserialization Error: property: {p.Name} -- {ex.Message}", ex);
+          }
         }
       }
 
@@ -38,7 +49,8 @@ namespace AWG.FIWARE.Serializers
 
     public override void WriteJson(JsonWriter writer, T value, JsonSerializer serializer)
     {
-      throw new NotImplementedException();
+      JToken t = JToken.FromObject(value);
+      t.WriteTo(writer);
     }
   }
 }

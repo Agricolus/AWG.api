@@ -13,7 +13,7 @@ namespace AWG.FIWARE.DataModels
   {
     public string Id { get; set; }
     public string Type { get; private set; } = "WeatherObserved";
-    public Uri DataProvider { get; set; }
+    public string DataProvider { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
     public string Name { get; set; }

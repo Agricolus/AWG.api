@@ -19,7 +19,7 @@ namespace AWG.Measures.api
       mvcbuilder.PartManager.ApplicationParts.Add(new AssemblyPart(Assembly.GetExecutingAssembly()));
       mvcbuilder.AddNewtonsoftJson(options =>
       {
-        // options.SerializerSettings.Converters.Add(new FiwareNormalizedJsonConverter<fiware.WeatherObserved>());
+        options.SerializerSettings.Converters.Add(new FiwareNormalizedJsonConverter<fiware.WeatherObserved>());
       });
     }
   }
