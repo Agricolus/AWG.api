@@ -26,6 +26,10 @@ namespace AWG.Measures.handlers.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("AddressSerialized")
+                        .HasColumnName("Address")
+                        .HasColumnType("text");
+
                     b.Property<double>("AtmosphericPressure")
                         .HasColumnType("double precision");
 
@@ -51,11 +55,9 @@ namespace AWG.Measures.handlers.Migrations
                     b.Property<double>("Illuminance")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision");
+                    b.Property<string>("LocationSerialized")
+                        .HasColumnName("Location")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("character varying(150)")
@@ -63,6 +65,10 @@ namespace AWG.Measures.handlers.Migrations
 
                     b.Property<double>("Precipitation")
                         .HasColumnType("double precision");
+
+                    b.Property<string>("PressureTendencySerialized")
+                        .HasColumnName("PressureTendency")
+                        .HasColumnType("text");
 
                     b.Property<string>("RefDevice")
                         .HasColumnType("text");
@@ -87,6 +93,9 @@ namespace AWG.Measures.handlers.Migrations
 
                     b.Property<double>("Temperature")
                         .HasColumnType("double precision");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
 
                     b.Property<int>("Visibility")
                         .HasColumnType("integer");

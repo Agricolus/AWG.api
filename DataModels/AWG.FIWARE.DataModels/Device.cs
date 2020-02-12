@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Fiware Device data model
+/// </summary>
+/// <details>
+/// https://github.com/FIWARE/data-models/tree/master/specs/Device/Device
+/// </details>
+
 namespace AWG.FIWARE.DataModels
 {
   public class Device
@@ -39,6 +46,6 @@ namespace AWG.FIWARE.DataModels
     public string Value { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
-    public List<object> Owner { get; set; }
+    public IEnumerable<object> Owner { get; set; }
   }
 }

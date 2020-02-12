@@ -1,7 +1,5 @@
-﻿using AWG.FIWARE.DataModels;
-using MediatR;
+﻿using MediatR;
 using System;
-
 using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Measures.core.Command
@@ -9,6 +7,7 @@ namespace AWG.Measures.core.Command
   public class AddMeasure : IRequest<fiware.WeatherObserved>
   {
     public string Id { get; set; }
+    public string Type { get; private set; } = "WeatherObserved";
     public Uri DataProvider { get; set; }
     public DateTime DateModified { get; set; }
     public DateTime DateCreated { get; set; }
@@ -19,9 +18,9 @@ namespace AWG.Measures.core.Command
     public string Source { get; set; }
     public string RefDevice { get; set; }
     public string RefPointOfInterest { get; set; }
-    public WeatherTypeEnum WeatherType { get; set; }
+    public fiware.WeatherTypeEnum WeatherType { get; set; }
     public double DewPoint { get; set; }
-    public WeatherMeasureVisibilityEnum Visibility { get; set; }
+    public fiware.WeatherMeasureVisibilityEnum Visibility { get; set; }
     public double Temperature { get; set; }
     public double RelativeHumidity { get; set; }
     public double Precipitation { get; set; }
@@ -33,6 +32,5 @@ namespace AWG.Measures.core.Command
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }
     public double SnowHeight { get; set; }
-
   }
 }

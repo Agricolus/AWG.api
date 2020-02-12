@@ -1,6 +1,13 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Fiware DeviceModel data model
+/// </summary>
+/// <details>
+/// https://github.com/FIWARE/data-models/tree/master/specs/Device/DeviceModel
+/// </details>
+
 namespace AWG.FIWARE.DataModels
 {
   public class DeviceModel

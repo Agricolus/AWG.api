@@ -5,7 +5,7 @@ using System.Threading;
 using AutoMapper;
 using System.Linq;
 using fiware = AWG.FIWARE.DataModels;
-using AWG.Stations.core.CQRS.Command;
+using AWG.Stations.core.Command;
 using Microsoft.EntityFrameworkCore;
 
 namespace AWG.Stations.handlers.Command
