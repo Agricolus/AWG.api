@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -5,6 +6,7 @@ using fiware = AWG.FIWARE.DataModels;
 using Toolbelt.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using BAMCIS.GeoJSON;
+using AWG.FIWARE.DataModels;
 
 namespace AWG.Measures.handlers.Model
 {
@@ -45,7 +47,8 @@ namespace AWG.Measures.handlers.Model
     }
 
     [NotMapped]
-    public object Address { get; set; }
+    public Address Address { get; set; }
+
     [Column("Address")]
     public string AddressSerialized
     {
@@ -56,7 +59,7 @@ namespace AWG.Measures.handlers.Model
       set
       {
         if (value != null)
-          Address = JsonConvert.DeserializeObject<object>(value);
+          Address = JsonConvert.DeserializeObject<Address>(value);
         else
           Address = null;
       }

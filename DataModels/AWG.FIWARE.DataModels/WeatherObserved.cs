@@ -19,7 +19,7 @@ namespace AWG.FIWARE.DataModels
     public DateTime DateCreated { get; set; }
     public string Name { get; set; }
     public GeoJson Location { get; set; }
-    public object Address { get; set; }
+    public Address Address { get; set; }
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }
     public string RefDevice { get; set; }
