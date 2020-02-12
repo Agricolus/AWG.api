@@ -39,7 +39,10 @@ namespace AWG.api
 
       Loader.Current.ConfigureServices(services, this.Configuration);
 
-      services.AddControllers().AddNewtonsoftJson();
+      services.AddControllers().AddNewtonsoftJson(options =>
+      {
+        options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+      });
 
       services.AddAutoMapper(Loader.Current.Assemblies);
 
