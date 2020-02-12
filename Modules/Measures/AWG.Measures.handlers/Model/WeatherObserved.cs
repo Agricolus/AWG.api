@@ -61,6 +61,9 @@ namespace AWG.Measures.handlers.Model
       }
     }
 
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
     [Index("weather_date", 1)]
     public DateTime DateObserved { get; set; }
     public string Source { get; set; }

@@ -89,9 +89,15 @@ namespace AWG.Stations.handlers.Migrations
                         .HasColumnName("IpAddress")
                         .HasColumnType("text");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("LocationSerialized")
                         .HasColumnName("Location")
                         .HasColumnType("text");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("MacAddressSerialized")
                         .HasColumnName("MacAddress")

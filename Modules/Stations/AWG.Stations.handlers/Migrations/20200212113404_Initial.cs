@@ -29,6 +29,8 @@ namespace AWG.Stations.handlers.Migrations
                     Configuration = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 150, nullable: true),
                     Location = table.Column<string>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     DateInstalled = table.Column<DateTime>(nullable: true),
                     DateFirstUsed = table.Column<DateTime>(nullable: true),

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AWG.Measures.handlers.Migrations
 {
     [DbContext(typeof(MigrationContext))]
-    [Migration("20200212104959_Initial")]
+    [Migration("20200212113251_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,9 +57,15 @@ namespace AWG.Measures.handlers.Migrations
                     b.Property<double>("Illuminance")
                         .HasColumnType("double precision");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("LocationSerialized")
                         .HasColumnName("Location")
                         .HasColumnType("text");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("Name")
                         .HasColumnType("character varying(150)")

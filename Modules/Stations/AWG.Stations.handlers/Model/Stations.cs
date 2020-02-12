@@ -171,6 +171,8 @@ namespace AWG.Stations.handlers.Model
       }
     }
 
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
     public string Description { get; set; }
     public DateTime? DateInstalled { get; set; }
     public DateTime? DateFirstUsed { get; set; }

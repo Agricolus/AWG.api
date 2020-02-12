@@ -22,6 +22,8 @@ namespace AWG.Measures.handlers.Migrations
                     Name = table.Column<string>(maxLength: 150, nullable: true),
                     Location = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
                     DateObserved = table.Column<DateTime>(nullable: false),
                     Source = table.Column<string>(nullable: true),
                     RefDevice = table.Column<string>(nullable: true),
