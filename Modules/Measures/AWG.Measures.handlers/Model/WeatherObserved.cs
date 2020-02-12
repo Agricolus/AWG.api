@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using fiware = AWG.FIWARE.DataModels;
 using Toolbelt.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using BAMCIS.GeoJSON;
 
 namespace AWG.Measures.handlers.Model
 {
@@ -26,7 +27,7 @@ namespace AWG.Measures.handlers.Model
     public string Name { get; set; }
 
     [NotMapped]
-    public object Location { get; set; }
+    public GeoJson Location { get; set; }
     [Column("Location")]
     public string LocationSerialized
     {
@@ -37,7 +38,7 @@ namespace AWG.Measures.handlers.Model
       set
       {
         if (value != null)
-          Location = JsonConvert.DeserializeObject<object>(value);
+          Location = JsonConvert.DeserializeObject<GeoJson>(value);
         else
           Location = null;
       }

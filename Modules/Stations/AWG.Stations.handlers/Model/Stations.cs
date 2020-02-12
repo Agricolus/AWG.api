@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Toolbelt.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using BAMCIS.GeoJSON;
 
 namespace AWG.Stations.handlers.Model
 {
@@ -154,7 +155,7 @@ namespace AWG.Stations.handlers.Model
     public string Name { get; set; }
 
     [NotMapped]
-    public object Location { get; set; }
+    public GeoJson Location { get; set; }
     [Column("Location")]
     public string LocationSerialized
     {
@@ -165,7 +166,7 @@ namespace AWG.Stations.handlers.Model
       set
       {
         if (value != null)
-          Location = JsonConvert.DeserializeObject<object>(value);
+          Location = JsonConvert.DeserializeObject<GeoJson>(value);
         else
           Location = null;
       }

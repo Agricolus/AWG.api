@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BAMCIS.GeoJSON;
 using MediatR;
 using fiware = AWG.FIWARE.DataModels;
 
