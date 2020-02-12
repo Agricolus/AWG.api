@@ -8,6 +8,7 @@
 <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="System.Composition" Version="1.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
 </ItemGroup>
   
 
@@ -15,6 +16,7 @@
   <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj" />
   <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj" />
   <ProjectReference Include="..\AWG.Stations.core\AWG.Stations.core.csproj" />
+  <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.Serializers\AWG.FIWARE.Serializers.csproj" />
 </ItemGroup>
 
 </Project>

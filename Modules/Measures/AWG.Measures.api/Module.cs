@@ -4,6 +4,9 @@ using AWG.Common;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AWG.FIWARE.Serializers;
+using fiware = AWG.FIWARE.DataModels;
+
 
 namespace AWG.Measures.api
 {
@@ -12,7 +15,12 @@ namespace AWG.Measures.api
   {
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
-      services.AddControllers().PartManager.ApplicationParts.Add(new AssemblyPart(Assembly.GetExecutingAssembly()));
+      var mvcbuilder = services.AddControllers();
+      mvcbuilder.PartManager.ApplicationParts.Add(new AssemblyPart(Assembly.GetExecutingAssembly()));
+      mvcbuilder.AddNewtonsoftJson(options =>
+      {
+        options.SerializerSettings.Converters.Add(new FiwareNormalizedJsonConverter<fiware.WeatherObserved>());
+      });
     }
   }
 }
