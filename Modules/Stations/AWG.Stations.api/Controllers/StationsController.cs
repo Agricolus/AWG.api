@@ -35,6 +35,18 @@ namespace AWG.Stations.api.Controllers
       return await mediator.Send(new GetStation() { Id = id });
     }
 
+    [Route("nearest"), HttpGet]
+    public async Task<Paginated<fiware.Device>> GetNearestStations(double longitude, double latitude, int skip = 0, int take = 20)
+    {
+      return await mediator.Send(new GetNearestStations()
+      {
+        Longitude = longitude,
+        Latitude = latitude,
+        Skip = skip,
+        Take = take
+      });
+    }
+
     [Route(""), HttpPost, HttpPut]
     public async Task<fiware.Device> CreateStation([FromBody] fiware.Device model)
     {
