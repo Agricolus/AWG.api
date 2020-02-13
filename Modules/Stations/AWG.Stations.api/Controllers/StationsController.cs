@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AWG.Common;
 using AWG.Stations.core.Command;
 using AWG.Stations.core.Query;
 using MediatR;
@@ -23,9 +24,9 @@ namespace AWG.Stations.api.Controllers
     }
 
     [Route(""), HttpGet]
-    public async Task<IEnumerable<fiware.Device>> GetAllActiveStations()
+    public async Task<Paginated<fiware.Device>> GetAllActiveStations(int skip = 0, int take = 20)
     {
-      return await mediator.Send(new ListAllActiveStations());
+      return await mediator.Send(new ListAllActiveStations() { Skip = skip, Take = take });
     }
 
     [Route("{id}"), HttpGet]

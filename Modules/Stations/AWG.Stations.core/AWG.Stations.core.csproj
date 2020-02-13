@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj" />
+    <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj" />
   </ItemGroup>
 
 </Project>
