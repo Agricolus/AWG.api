@@ -85,25 +85,7 @@ namespace AWG.Measures.handlers.Model
     public double WindDirection { get; set; }
     public double WindSpeed { get; set; }
     public double AtmosphericPressure { get; set; }
-
-    [NotMapped]
-    public object PressureTendency { get; set; }
-    [Column("PressureTendency")]
-    public string PressureTendencySerialized
-    {
-      get
-      {
-        return JsonConvert.SerializeObject(PressureTendency);
-      }
-      set
-      {
-        if (value != null)
-          PressureTendency = JsonConvert.DeserializeObject<object>(value);
-        else
-          PressureTendency = null;
-      }
-    }
-
+    public fiware.PressureTendencyEnum PressureTendency { get; set; }
     public double SolarRadiation { get; set; }
     public double Illuminance { get; set; }
     public double StreamGauge { get; set; }

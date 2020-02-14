@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AWG.Measures.handlers.Migrations
 {
     [DbContext(typeof(MigrationContext))]
-    [Migration("20200212113251_Initial")]
+    [Migration("20200214103446_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,8 @@ namespace AWG.Measures.handlers.Migrations
                     b.Property<double>("Precipitation")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("PressureTendencySerialized")
-                        .HasColumnName("PressureTendency")
-                        .HasColumnType("text");
+                    b.Property<int>("PressureTendency")
+                        .HasColumnType("integer");
 
                     b.Property<string>("RefDevice")
                         .HasColumnType("text");

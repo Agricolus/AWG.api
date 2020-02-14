@@ -37,7 +37,7 @@ namespace AWG.Measures.handlers.Migrations
                     WindDirection = table.Column<double>(nullable: false),
                     WindSpeed = table.Column<double>(nullable: false),
                     AtmosphericPressure = table.Column<double>(nullable: false),
-                    PressureTendency = table.Column<string>(nullable: true),
+                    PressureTendency = table.Column<int>(nullable: false),
                     SolarRadiation = table.Column<double>(nullable: false),
                     Illuminance = table.Column<double>(nullable: false),
                     StreamGauge = table.Column<double>(nullable: false),
