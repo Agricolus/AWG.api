@@ -17,7 +17,7 @@ namespace AWG.Measures.handlers
       switch (configuration["DataBaseType"])
       {
         case "postgre": services.AddDbContext<MeasuresContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGPostgreContext"))); break;
-        case "mysql": services.AddDbContext<MeasuresContext>(options => options.UseMySql(configuration.GetConnectionString("AWGMySqlContext"))); break;
+          // case "mysql": services.AddDbContext<MeasuresContext>(options => options.UseMySql(configuration.GetConnectionString("AWGMySqlContext"))); break;
       }
 
 

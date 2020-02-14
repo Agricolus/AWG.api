@@ -17,7 +17,7 @@ namespace AWG.Stations.handlers
       switch (configuration["DataBaseType"])
       {
         case "postgre": services.AddDbContext<StationsContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGPostgreContext"))); break;
-        case "mysql": services.AddDbContext<StationsContext>(options => options.UseMySql(configuration.GetConnectionString("AWGMySqlContext"))); break;
+          // case "mysql": services.AddDbContext<StationsContext>(options => options.UseMySql(configuration.GetConnectionString("AWGMySqlContext"))); break;
       }
 
       services.AddMediatR(Assembly.GetExecutingAssembly());
