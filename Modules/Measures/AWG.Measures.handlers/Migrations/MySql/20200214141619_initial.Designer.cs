@@ -3,116 +3,115 @@ using System;
 using AWG.Measures.handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AWG.Measures.handlers.Migrations
+namespace AWG.Measures.handlers.Migrations.MySql
 {
-    [DbContext(typeof(MigrationContext))]
-    partial class MigrationContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(MySqlContext))]
+    [Migration("20200214141619_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("AWG.Measures.handlers.Model.WeatherObserved", b =>
                 {
                     b.Property<long>("_internalId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("AddressSerialized")
                         .HasColumnName("Address")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<double?>("AtmosphericPressure")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("DataProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DateObserved")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<double?>("DewPoint")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("Id")
-                        .HasColumnType("character varying(150)")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
                         .HasMaxLength(150);
 
                     b.Property<double?>("Illuminance")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<double>("Latitude")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("LocationSerialized")
                         .HasColumnName("Location")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<double>("Longitude")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(150)")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
                         .HasMaxLength(150);
 
                     b.Property<double?>("Precipitation")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<int?>("PressureTendency")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("RefDevice")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("RefPointOfInterest")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<double?>("RelativeHumidity")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<double?>("SnowHeight")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<double?>("SolarRadiation")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("Source")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<double?>("StreamGauge")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<double?>("Temperature")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<string>("Type")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int?>("Visibility")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int?>("WeatherType")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<double?>("WindDirection")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.Property<double?>("WindSpeed")
-                        .HasColumnType("double precision");
+                        .HasColumnType("double");
 
                     b.HasKey("_internalId");
 

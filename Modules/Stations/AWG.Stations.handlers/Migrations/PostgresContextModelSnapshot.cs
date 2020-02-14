@@ -3,17 +3,15 @@ using System;
 using AWG.Stations.handlers.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AWG.Stations.handlers.Migrations
 {
-    [DbContext(typeof(MigrationContext))]
-    [Migration("20200212113404_Initial")]
-    partial class Initial
+    [DbContext(typeof(PostgresContext))]
+    partial class PostgresContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
