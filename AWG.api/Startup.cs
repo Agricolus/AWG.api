@@ -35,7 +35,12 @@ namespace AWG.api
     public void ConfigureServices(IServiceCollection services)
     {
 
-      services.AddEntityFrameworkNpgsql();
+      switch (Configuration["DataBaseType"])
+      {
+        case "mysql": break;
+        case "postgres": break;
+      }
+      // services.AddEntityFrameworkNpgsql();
 
       Loader.Current.ConfigureServices(services, this.Configuration);
 

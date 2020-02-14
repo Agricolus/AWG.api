@@ -14,7 +14,13 @@ namespace AWG.Measures.handlers
   {
     public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
-      services.AddDbContext<MeasuresContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGContext")));
+      switch (configuration["DataBaseType"])
+      {
+        case "postgre": services.AddDbContext<MeasuresContext>(options => options.UseNpgsql(configuration.GetConnectionString("AWGPostgreContext"))); break;
+        case "mysql": services.AddDbContext<MeasuresContext>(options => options.UseMySql(configuration.GetConnectionString("AWGMySqlContext"))); break;
+      }
+
+
       services.AddMediatR(Assembly.GetExecutingAssembly());
     }
   }

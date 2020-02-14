@@ -3,10 +3,16 @@ using Toolbelt.ComponentModel.DataAnnotations;
 
 namespace AWG.Stations.handlers.Model
 {
-  public class MigrationContext : StationsContext
+  public class PostgresContext : StationsContext
   {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
            => optionsBuilder.UseNpgsql("Host=192.168.1.181;Database=awg;Username=postgres;Password=postgres");
+  }
+
+  public class MySqlContext : StationsContext
+  {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+           => optionsBuilder.UseMySql("Server=192.168.1.181;Database=awg;User=root;Password=example;");
   }
 
   public class StationsContext : DbContext

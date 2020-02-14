@@ -10,6 +10,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
     <PackageReference Include="GeoJSON" Version="2.1.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1"/>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj"/>

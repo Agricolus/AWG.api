@@ -28,20 +28,19 @@ namespace AWG.FIWARE.DataModels
     public string Source { get; set; }
     public string RefDevice { get; set; }
     public string RefPointOfInterest { get; set; }
-    public WeatherTypeEnum WeatherType { get; set; }
-    public double DewPoint { get; set; }
-    public WeatherMeasureVisibilityEnum Visibility { get; set; }
-    public double Temperature { get; set; }
-    public double RelativeHumidity { get; set; }
-    public double Precipitation { get; set; }
-    public double WindDirection { get; set; }
-    public double WindSpeed { get; set; }
-    public double AtmosphericPressure { get; set; }
-    public object PressureTendency { get; set; }
-    public double SolarRadiation { get; set; }
-    public double Illuminance { get; set; }
-    public double StreamGauge { get; set; }
-    public double SnowHeight { get; set; }
-
+    public WeatherTypeEnum? WeatherType { get; set; }
+    public double? DewPoint { get; set; }
+    public WeatherMeasureVisibilityEnum? Visibility { get; set; }
+    public double? Temperature { get; set; }
+    public double? RelativeHumidity { get; set; }
+    public double? Precipitation { get; set; }
+    public double? WindDirection { get; set; }
+    public double? WindSpeed { get; set; }
+    public double? AtmosphericPressure { get; set; }
+    public PressureTendencyEnum? PressureTendency { get; set; }
+    public double? SolarRadiation { get; set; }
+    public double? Illuminance { get; set; }
+    public double? StreamGauge { get; set; }
+    public double? SnowHeight { get; set; }
   }
 }

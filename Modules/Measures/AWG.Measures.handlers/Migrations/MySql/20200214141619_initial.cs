@@ -1,19 +1,19 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace AWG.Measures.handlers.Migrations
+namespace AWG.Measures.handlers.Migrations.MySql
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "WeatherMeasures",
+                name: "WeatherObserved",
                 columns: table => new
                 {
                     _internalId = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Id = table.Column<string>(maxLength: 150, nullable: true),
                     Type = table.Column<string>(nullable: true),
                     DataProvider = table.Column<string>(nullable: true),
@@ -28,41 +28,41 @@ namespace AWG.Measures.handlers.Migrations
                     Source = table.Column<string>(nullable: true),
                     RefDevice = table.Column<string>(nullable: true),
                     RefPointOfInterest = table.Column<string>(nullable: true),
-                    WeatherType = table.Column<int>(nullable: false),
-                    DewPoint = table.Column<double>(nullable: false),
-                    Visibility = table.Column<int>(nullable: false),
-                    Temperature = table.Column<double>(nullable: false),
-                    RelativeHumidity = table.Column<double>(nullable: false),
-                    Precipitation = table.Column<double>(nullable: false),
-                    WindDirection = table.Column<double>(nullable: false),
-                    WindSpeed = table.Column<double>(nullable: false),
-                    AtmosphericPressure = table.Column<double>(nullable: false),
-                    PressureTendency = table.Column<string>(nullable: true),
-                    SolarRadiation = table.Column<double>(nullable: false),
-                    Illuminance = table.Column<double>(nullable: false),
-                    StreamGauge = table.Column<double>(nullable: false),
-                    SnowHeight = table.Column<double>(nullable: false)
+                    WeatherType = table.Column<int>(nullable: true),
+                    DewPoint = table.Column<double>(nullable: true),
+                    Visibility = table.Column<int>(nullable: true),
+                    Temperature = table.Column<double>(nullable: true),
+                    RelativeHumidity = table.Column<double>(nullable: true),
+                    Precipitation = table.Column<double>(nullable: true),
+                    WindDirection = table.Column<double>(nullable: true),
+                    WindSpeed = table.Column<double>(nullable: true),
+                    AtmosphericPressure = table.Column<double>(nullable: true),
+                    PressureTendency = table.Column<int>(nullable: true),
+                    SolarRadiation = table.Column<double>(nullable: true),
+                    Illuminance = table.Column<double>(nullable: true),
+                    StreamGauge = table.Column<double>(nullable: true),
+                    SnowHeight = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WeatherMeasures", x => x._internalId);
+                    table.PrimaryKey("PK_WeatherObserved", x => x._internalId);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "weather_date",
-                table: "WeatherMeasures",
+                table: "WeatherObserved",
                 columns: new[] { "RefDevice", "DateObserved" });
 
             migrationBuilder.CreateIndex(
                 name: "weather_unique",
-                table: "WeatherMeasures",
+                table: "WeatherObserved",
                 columns: new[] { "RefDevice", "Id" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WeatherMeasures");
+                name: "WeatherObserved");
         }
     }
 }
