@@ -33,7 +33,7 @@ namespace AWG.Measures.handlers.Query
 
     public async Task<fiware.WeatherObserved> Handle(GetLastMeasure request, CancellationToken cancellationToken)
     {
-      var result = await (from m in db.WeatherMeasures
+      var result = await (from m in db.WeatherObserved
                           where m.RefDevice == request.StationId
                           orderby m.DateObserved descending
                           select m).Take(1).FirstOrDefaultAsync();
@@ -43,7 +43,7 @@ namespace AWG.Measures.handlers.Query
 
     public async Task<IEnumerable<fiware.WeatherObserved>> Handle(GetMeasuresList request, CancellationToken cancellationToken)
     {
-      return await (from m in db.WeatherMeasures
+      return await (from m in db.WeatherObserved
                     where m.DateObserved >= request.FromDate &&
                           m.DateObserved < request.ToDate &&
                           m.RefDevice == request.StationId
@@ -58,7 +58,7 @@ namespace AWG.Measures.handlers.Query
       if (request.ToDate != null)
         todate = request.ToDate.Value.Date.AddDays(1);
 
-      return await (from m in db.WeatherMeasures
+      return await (from m in db.WeatherObserved
                     where m.DateObserved >= fromdate &&
                           (todate == null || m.DateObserved < todate) &&
                           m.RefDevice == request.StationId
@@ -109,7 +109,7 @@ namespace AWG.Measures.handlers.Query
       if (request.ToDate != null)
         todate = request.ToDate.Value.Date.AddDays(1);
 
-      return await (from m in db.WeatherMeasures
+      return await (from m in db.WeatherObserved
                     where m.DateObserved >= fromdate &&
                           (todate == null || m.DateObserved < todate) &&
                           m.RefDevice == request.StationId
@@ -163,7 +163,7 @@ namespace AWG.Measures.handlers.Query
       if (request.ToDate != null)
         todate = request.ToDate.Value.Date.AddDays(1);
 
-      return await (from m in db.WeatherMeasures
+      return await (from m in db.WeatherObserved
                     where m.DateObserved >= fromdate &&
                           (todate == null || m.DateObserved < todate) &&
                           m.RefDevice == request.StationId

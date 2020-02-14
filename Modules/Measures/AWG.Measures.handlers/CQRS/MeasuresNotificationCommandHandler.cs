@@ -33,7 +33,7 @@ namespace AWG.Measures.handlers.Command
 
     public async Task Handle(UpdateMeasureNotification request, CancellationToken cancellationToken)
     {
-      var measure = await db.WeatherMeasures.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+      var measure = await db.WeatherObserved.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
       if (measure == null) return;
 
@@ -45,7 +45,7 @@ namespace AWG.Measures.handlers.Command
       await db.SaveChangesAsync();
     }
 
-    private void UpdateLocation(WeatherMeasure measure)
+    private void UpdateLocation(WeatherObserved measure)
     {
       if (measure.Location != null)
       {
@@ -67,7 +67,7 @@ namespace AWG.Measures.handlers.Command
       }
     }
 
-    private async Task ResolveAddress(WeatherMeasure measure)
+    private async Task ResolveAddress(WeatherObserved measure)
     {
       if (this.configuration["OSMGeocoding:EnableGeocodingForMeasures"] != "true") return;
 

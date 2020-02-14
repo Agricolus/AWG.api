@@ -22,6 +22,6 @@ namespace AWG.Measures.handlers.Model
       modelBuilder.BuildIndexesFromAnnotations();
     }
 
-    public virtual DbSet<WeatherMeasure> WeatherMeasures { get; set; }
+    public virtual DbSet<WeatherObserved> WeatherObserved { get; set; }
   }
 }
