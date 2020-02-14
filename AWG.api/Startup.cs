@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using System.IO;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,14 @@ namespace AWG.api
       }
       // services.AddEntityFrameworkNpgsql();
 
+      services.AddCors(options =>
+      {
+        options.AddDefaultPolicy(builder =>
+        {
+          builder.WithOrigins("*").WithMethods("*").WithHeaders("*");
+        });
+      });
+
       Loader.Current.ConfigureServices(services, this.Configuration);
 
       services.AddControllers().AddNewtonsoftJson(options =>
@@ -77,6 +86,8 @@ namespace AWG.api
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Agro Weather Gateway v1");
       });
+
+      app.UseCors();
 
       app.UseRouting();
 
