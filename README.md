@@ -114,13 +114,6 @@ sudo docker run --name <my-postgres-instance-> -e POSTGRES_PASSWORD=<my-password
 
 The default installation of PostgreSQL open the 5432 port.
 
-If you want to use [MySQL](https://www.mysql.com/downloads/) on premises, install it following the official guide.
-
-To install it through Docker, type:
-
-```sh
-
-```
 
 If you want to use [Orion Context Broker](https://github.com/telefonicaid/fiware-orion) on premises, install it following the official guide.
 
@@ -168,51 +161,7 @@ It uses a **PostgreSQL** server for data persistance and it's secured by an inst
 
 To use the APIs, download and install [Microsoft .NET Core Framework SDK v3.1](https://dotnet.microsoft.com/download).
 
-#### Web Frontend
 
-Project setup:
-```sh
-npm install
-```
-
-Compiles and hot-reloads for development:
-```sh
-npm run serve
-```
-
-Compiles and minifies for production:
-```sh
-npm run build
-```
-
-Lints and fixes files:
-```sh
-npm run lint
-```
-
-To customize the configurations, see the [Configuration Reference](https://cli.vuejs.org/config/).
-
-#### Developers Tools
-
-To use Visual Studio Code, it is highly recommended install this plugins:
-* .NET Core Add Reference
-* Auto-Using for C#
-* C# Extensions
-* C# Essentials
-* C# for Visual Studio Code (powered by OmniSharp)
-* MSBuild project file tools
-* VScode-icons
-* VScode-nuget-package-manager
-* XML Documentation Comments Support for Visual Studio Code
-
-To use Azure Data Studio, it is highly recommended install this plugin:
-* PostgreSQL extension for Azure Data Studio
-
-Open the Windows Command Line and type this command:
-
-```sh
-dotnet tool install --global dotnet-ef
-```
 
 ## Versioning
 
