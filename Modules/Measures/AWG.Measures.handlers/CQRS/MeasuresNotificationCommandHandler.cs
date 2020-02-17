@@ -94,8 +94,9 @@ namespace AWG.Measures.handlers.Command
             {
               string data = await content.ReadAsStringAsync();
 
-              var geojson = JsonConvert.DeserializeObject<GeoJson>(data);
-              measure.Location = geojson;
+              var geojson = JsonConvert.DeserializeObject<FeatureCollection>(data);
+              var geometry = geojson.Features.FirstOrDefault().Geometry;
+              measure.Location = geometry;
               UpdateLocation(measure);
             }
           }
