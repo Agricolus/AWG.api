@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1"/>
+    <PackageReference Include="MediatR" Version="8.0.0"/>
+    <PackageReference Include="System.Composition" Version="1.4.0"/>
+    <PackageReference Include="Toolbelt.EntityFrameworkCore.IndexAttribute" Version="3.1.0"/>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1"/>
+    <PackageReference Include="GeoJSON" Version="2.1.0"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+    <!-- <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1"/>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2"/> -->
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj"/>
+    <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj"/>
+    <ProjectReference Include="..\AWG.Stations.core\AWG.Stations.core.csproj"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+</Project>
