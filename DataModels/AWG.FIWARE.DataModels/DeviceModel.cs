@@ -21,7 +21,7 @@ namespace AWG.FIWARE.DataModels
     public string Id { get; set; }
     public string Type { get; private set; } = "DeviceModel";
     public string Source { get; set; }
-    public string DataProvider { get; set; }
+    public Uri DataProvider { get; set; }
     public string Category { get; set; }
     public string DeviceClass { get; set; }
     public IEnumerable<string> ControlledProperty { get; set; }
