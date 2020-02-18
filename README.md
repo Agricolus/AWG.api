@@ -15,17 +15,12 @@
 * [Introduction](#introduction)
 * [Architecture](#architecture)
 * [Functionalities](#functionalities)
-* [Built With](#built-with)
 * [Installation](#installation)
   * [Infrastructure](#infrastructure)
   * [Services](#backend-services)
   * [Getting Started](#docker)
-  * [APIs](#apis)
-  * [Web Frontend](#web-frontend)
-  * [Developers Tools](#developers-tools)
-* [Versioning](#versioning)
-* [Authors](#authors)
-* [Contributing](#contributing)
+* [APIs](#apis)
+* [Frontend](#frontend)
 * [License](#license)
 
 ## Introduction
@@ -70,20 +65,6 @@ This Gateway is both a standalone application and a data gateway for agroweather
 * APIs for data access​
 * Admin frontend with overall sensors dashboard​
 * End user portal that will have access to data​
-
-## Built With
-
-* APIs
-   * [Visual Studio Code](https://code.visualstudio.com)
-   * [Azure Data Studio](https://docs.microsoft.com/en-us/sql/azure-data-studio)
-   * [Microsoft .NET Core Framework](https://docs.microsoft.com/en-us/dotnet/core)
-   * [PostgreSQL](https://www.postgresql.org)
-   * [FIWARE Data Models](https://github.com/FIWARE/data-models)
-* Web Frontend
-   * [NPM](https://www.npmjs.com)
-   * [Vue.js](https://vuejs.org)
-   * [Font Awesome](https://fontawesome.com/)
-   * [Weather Icons](https://erikflowers.github.io/weather-icons/)
 
 ## Installation
 
@@ -154,32 +135,13 @@ networks:
     internal: true
 ```
 
-#### APIs
+## APIs
 
-Is a backend service written in **.NET Core Framework** that register itself as a subscriber into the instance of **Orion-LD** for simplifying historic weather data analisys. 
-It uses a **PostgreSQL** server for data persistance and it's secured by an instance of the **Wilma PEP Proxy (Powered by FIWARE)**.
+See [SPEC.md](https://github.com/Agricolus/AWG.api/blob/master/SPEC.md).
 
-To use the APIs, download and install [Microsoft .NET Core Framework SDK v3.1](https://dotnet.microsoft.com/download).
+## Frontend
 
-
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. 
-
-For the versions available, see the **tags** on this repository.
-
-## Authors
-
-See the list of **contributors** who participated in this project.
-
-## Contributing
-
-1. Fork this repository
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+See the [Frontend Repository](https://github.com/Agricolus/AWG.frontend).
 
 ## License
 
