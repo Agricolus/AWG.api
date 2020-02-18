@@ -38,6 +38,7 @@ namespace AWG.Stations.handlers.Command
         station.Id = $"urn:ngsi-ld:Device:{Guid.NewGuid().ToString()}";
         station.DateCreated = now;
         station.Category = new List<string>() { "sensor" };
+        station.Owner = new List<string>();
 
         db.Stations.Add(station);
       }
