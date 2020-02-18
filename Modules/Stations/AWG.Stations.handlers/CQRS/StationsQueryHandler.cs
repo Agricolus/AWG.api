@@ -35,7 +35,7 @@ namespace AWG.Stations.handlers.Query
 
     public async Task<Paginated<fiware.Device>> Handle(ListAllActiveStations request, CancellationToken cancellationToken)
     {
-      var query = db.Stations.ProjectTo<fiware.Device>(mapper.ConfigurationProvider);
+      var query = db.Stations.OrderByDescending(f => f.DateLastValueReported).ProjectTo<fiware.Device>(mapper.ConfigurationProvider);
 
       return new Paginated<fiware.Device>()
       {
@@ -52,7 +52,7 @@ namespace AWG.Stations.handlers.Query
       var query = (from s in db.Stations
                    where s.Latitude != 0 && s.Longitude != 0
                    orderby Math.Sqrt(Math.Pow((s.Longitude - request.Longitude), 2) + Math.Pow((s.Latitude - request.Latitude), 2))
-                   select s).ProjectTo<fiware.Device>(mapper.ConfigurationProvider);
+                   select s).OrderByDescending(f => f.DateLastValueReported).ProjectTo<fiware.Device>(mapper.ConfigurationProvider);
 
       return new Paginated<fiware.Device>()
       {
