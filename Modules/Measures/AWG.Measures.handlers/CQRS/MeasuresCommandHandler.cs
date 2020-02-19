@@ -48,6 +48,11 @@ namespace AWG.Measures.handlers.Command
 
       await mediator.Publish(new UpdateMeasureNotification() { Id = measure.Id });
 
+      if (measure.RefDevice != null)
+      {
+        await mediator.Publish(new UpdateStationDateLastValueNotification() { Id = measure.RefDevice, DateLastValueReported = DateTime.UtcNow });
+      }
+
       return mapper.Map<fiware.WeatherObserved>(measure);
     }
   }

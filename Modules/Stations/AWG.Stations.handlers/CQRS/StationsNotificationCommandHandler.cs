@@ -7,10 +7,12 @@ using System.Linq;
 using AWG.Stations.core.Command;
 using Microsoft.EntityFrameworkCore;
 using BAMCIS.GeoJSON;
+using AWG.Measures.core.Command;
 
 namespace AWG.Stations.handlers.Command
 {
-  public class StationsNotificationCommandHandler : INotificationHandler<UpdateStationNotification>
+  public class StationsNotificationCommandHandler : INotificationHandler<UpdateStationNotification>,
+                                                    INotificationHandler<UpdateStationDateLastValueNotification>
   {
     private readonly StationsContext db;
     private readonly IMediator mediator;
@@ -31,6 +33,17 @@ namespace AWG.Stations.handlers.Command
 
       if (station.Location != null)
         UpdateLocation(station);
+
+      await db.SaveChangesAsync();
+    }
+
+    public async Task Handle(UpdateStationDateLastValueNotification request, CancellationToken cancellationToken)
+    {
+      var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+
+      if (station == null) return;
+
+      station.DateLastValueReported = request.DateLastValueReported;
 
       await db.SaveChangesAsync();
     }
