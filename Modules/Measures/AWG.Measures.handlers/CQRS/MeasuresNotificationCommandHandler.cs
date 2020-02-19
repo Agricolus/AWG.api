@@ -33,7 +33,7 @@ namespace AWG.Measures.handlers.Command
 
     public async Task Handle(UpdateMeasureNotification request, CancellationToken cancellationToken)
     {
-      var measure = await db.WeatherObserved.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+      var measure = await db.WeatherObserved.Where(f => f.Id == request.Measure.Id).FirstOrDefaultAsync();
 
       if (measure == null) return;
 

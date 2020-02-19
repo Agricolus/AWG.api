@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using AWG.Stations.handlers.Model;
 using System.Threading.Tasks;
 using System.Threading;
@@ -12,7 +13,7 @@ using AWG.Measures.core.Command;
 namespace AWG.Stations.handlers.Command
 {
   public class StationsNotificationCommandHandler : INotificationHandler<UpdateStationNotification>,
-                                                    INotificationHandler<UpdateStationDateLastValueNotification>
+                                                    INotificationHandler<UpdateMeasureNotification>
   {
     private readonly StationsContext db;
     private readonly IMediator mediator;
@@ -37,13 +38,16 @@ namespace AWG.Stations.handlers.Command
       await db.SaveChangesAsync();
     }
 
-    public async Task Handle(UpdateStationDateLastValueNotification request, CancellationToken cancellationToken)
+
+
+    public async Task Handle(UpdateMeasureNotification notification, CancellationToken cancellationToken)
     {
-      var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+      var station = await db.Stations.Where(f => f.Id == notification.Measure.RefDevice).FirstOrDefaultAsync();
 
       if (station == null) return;
 
-      station.DateLastValueReported = request.DateLastValueReported;
+      if (station.DateLastValueReported < notification.Measure.DateObserved)
+        station.DateLastValueReported = notification.Measure.DateObserved;
 
       await db.SaveChangesAsync();
     }
