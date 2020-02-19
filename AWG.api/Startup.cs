@@ -43,6 +43,7 @@ namespace AWG.api
       }
       // services.AddEntityFrameworkNpgsql();
 
+
       services.AddCors(options =>
       {
         options.AddDefaultPolicy(builder =>
