@@ -36,13 +36,6 @@ namespace AWG.api
     public void ConfigureServices(IServiceCollection services)
     {
 
-      switch (Configuration["DataBaseType"])
-      {
-        case "mysql": break;
-        case "postgres": break;
-      }
-      // services.AddEntityFrameworkNpgsql();
-
 
       services.AddCors(options =>
       {
