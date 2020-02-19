@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\..\AWG.Common\AWG.Common.csproj"/>
     <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj"/>
     <ProjectReference Include="..\AWG.Stations.core\AWG.Stations.core.csproj"/>
+    <ProjectReference Include="..\..\Measures\AWG.Measures.core\AWG.Measures.core.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
