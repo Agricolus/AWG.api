@@ -47,7 +47,7 @@ namespace AWG.Measures.handlers.Query
                     where m.DateObserved >= request.FromDate &&
                           m.DateObserved < request.ToDate &&
                           m.RefDevice == request.StationId
-                    select m).ProjectTo<fiware.WeatherObserved>(mapper.ConfigurationProvider).ToListAsync();
+                    select m).OrderBy(f => f.DateObserved).ProjectTo<fiware.WeatherObserved>(mapper.ConfigurationProvider).ToListAsync();
     }
 
     public async Task<IEnumerable<DailyMeasureDetail>> Handle(GetDailyMeasures request, CancellationToken cancellationToken)
@@ -98,7 +98,7 @@ namespace AWG.Measures.handlers.Query
                       AvgSnowHeight = gg.Average(g => g.SnowHeight),
                       MinSnowHeight = gg.Min(g => g.SnowHeight),
                       MaxSnowHeight = gg.Max(g => g.SnowHeight),
-                    }).ToListAsync();
+                    }).OrderBy(f => f.Date).ToListAsync();
     }
 
     public async Task<IEnumerable<WeeklyMeasureDetail>> Handle(GetWeeklyMeasures request, CancellationToken cancellationToken)
@@ -152,7 +152,7 @@ namespace AWG.Measures.handlers.Query
                       AvgSnowHeight = gg.Average(g => g.SnowHeight),
                       MinSnowHeight = gg.Min(g => g.SnowHeight),
                       MaxSnowHeight = gg.Max(g => g.SnowHeight),
-                    }).OrderBy(m => m.Date).ToListAsync();
+                    }).OrderBy(f => f.Date).ToListAsync();
     }
 
     public async Task<IEnumerable<MonthlyMeasureDetail>> Handle(GetMonthlyMeasures request, CancellationToken cancellationToken)
@@ -205,7 +205,7 @@ namespace AWG.Measures.handlers.Query
                       AvgSnowHeight = gg.Average(g => g.SnowHeight),
                       MinSnowHeight = gg.Min(g => g.SnowHeight),
                       MaxSnowHeight = gg.Max(g => g.SnowHeight),
-                    }).ToListAsync();
+                    }).OrderBy(f => f.Date).ToListAsync();
     }
   }
 }

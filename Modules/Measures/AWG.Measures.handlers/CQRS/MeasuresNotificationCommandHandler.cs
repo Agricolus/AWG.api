@@ -33,7 +33,7 @@ namespace AWG.Measures.handlers.Command
 
     public async Task Handle(UpdateMeasureNotification request, CancellationToken cancellationToken)
     {
-      var measure = await db.WeatherObserved.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+      var measure = await db.WeatherObserved.Where(f => f.Id == request.Measure.Id).FirstOrDefaultAsync();
 
       if (measure == null) return;
 
@@ -94,8 +94,9 @@ namespace AWG.Measures.handlers.Command
             {
               string data = await content.ReadAsStringAsync();
 
-              var geojson = JsonConvert.DeserializeObject<GeoJson>(data);
-              measure.Location = geojson;
+              var geojson = JsonConvert.DeserializeObject<FeatureCollection>(data);
+              var geometry = geojson.Features.FirstOrDefault().Geometry;
+              measure.Location = geometry;
               UpdateLocation(measure);
             }
           }
