@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.Composition.Hosting;
@@ -34,7 +35,16 @@ namespace AWG.api.AppStartup
         assemblies.AddRange(Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories)
             .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
             // Ensure that the assembly contains an implementation for the given type.
-            .Where(s => s.GetTypes().Where(p => typeof(IModule).IsAssignableFrom(p)).Any()));
+            .Where(s =>
+            {
+              try { return s.GetTypes().Where(p => typeof(IModule).IsAssignableFrom(p)).Any(); }
+              catch (Exception ex)
+              {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(s.FullName);
+              }
+              return false;
+            }));
 
       this.Assemblies = assemblies;
 
