@@ -11,8 +11,8 @@ namespace AWG.Stations.handlers.Model
 
   public class MySqlContext : StationsContext
   {
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //        => optionsBuilder.UseMySql("Server=192.168.1.181;Database=awg;User=root;Password=example;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+           => optionsBuilder.UseMySql("Server=192.168.1.181;Database=awg;User=root;Password=example;");
   }
 
   public class StationsContext : DbContext
