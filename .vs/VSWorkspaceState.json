@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DataModels",
+    "\\DataModels\\AWG.FIWARE.Serializers",
+    "\\Modules",
+    "\\Modules\\Stations",
+    "\\Modules\\Stations\\AWG.Stations.handlers",
+    "\\Modules\\Stations\\AWG.Stations.handlers\\helpers"
+  ],
+  "SelectedNode": "\\Modules\\Stations\\AWG.Stations.handlers\\helpers\\ContextBrokerClient.cs",
+  "PreviewInSolutionExplorer": false
+}

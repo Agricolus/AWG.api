@@ -35,6 +35,17 @@ namespace AWG.Stations.handlers.Command
       if (station.Location != null)
         UpdateLocation(station);
 
+
+
+
+
+
+
+
+
+
+
+
       await db.SaveChangesAsync();
     }
 
