@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using System;
 using MediatR;
 using AWG.Stations.handlers.Model;
 using System.Threading.Tasks;
@@ -51,15 +52,18 @@ namespace AWG.Stations.handlers.Command
 
       await db.SaveChangesAsync();
 
-
       await mediator.Publish(new UpdateStationNotification() { Id = station.Id });
 
-      var subscriptionId = await mediator.Send(new SubscribeStation() { Id = station.Id });
-
-      if (subscriptionId != null)
+      if (station.Source == null)
       {
-        station.Source = subscriptionId;
-        await db.SaveChangesAsync();
+        var subscriptionId = await mediator.Send(new SubscribeStation() { Id = station.Id });
+
+        if (subscriptionId != null)
+        {
+          station.Source = subscriptionId;
+
+          await db.SaveChangesAsync();
+        }
       }
 
       return mapper.Map<fiware.Device>(station);
@@ -69,13 +73,11 @@ namespace AWG.Stations.handlers.Command
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
-      await mediator.Send(new UnSubscribeStation() { subId = station.Source });
+      await mediator.Send(new UnsubscribeStation() { SubscriptionId = station.Source });
 
       db.Stations.Remove(station);
 
       await db.SaveChangesAsync();
-
-
 
       return Unit.Value;
     }

@@ -1,17 +1,17 @@
 
-using System.Runtime.InteropServices;
 using MediatR;
 using AWG.Stations.handlers.Model;
 using System.Threading.Tasks;
 using System.Threading;
 using AWG.Stations.core.Command;
-using AWG.Stations.handlers.Helpers;
 using System;
 using Microsoft.Extensions.Configuration;
+using AWG.Common.Helpers;
+using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Stations.handlers.Command
 {
-  public class StationCBCommandHandler : IRequestHandler<SubscribeStation, string>, IRequestHandler<UnSubscribeStation>
+  public class StationCBCommandHandler : IRequestHandler<SubscribeStation, string>, IRequestHandler<UnsubscribeStation>
   {
     private readonly StationsContext db;
     private readonly IConfiguration configuration;
@@ -26,9 +26,20 @@ namespace AWG.Stations.handlers.Command
     {
       var contextBorkerUrl = this.configuration["ContextBroker:url"];
       var contextBrokerNotificationEndpoint = this.configuration["ContextBroker:notificationEndpoint"];
-      var cbclinet = new ContextBrokerClient(contextBorkerUrl);
+      var cbclient = new ContextBrokerClient(contextBorkerUrl);
 
-      //TODO controllare se non esiste già
+      var device = await cbclient.RetrieveEntity<fiware.Device>(request.Id, "Device");
+
+      if (device == null)
+      {
+        device = new fiware.Device()
+        {
+          Id = request.Id
+        };
+
+        await cbclient.CreateEntity<fiware.Device>(device);
+      }
+
       var sub = new Subscription()
       {
         Description = $"station subscription - idStation: {request.Id}",
@@ -49,30 +60,21 @@ namespace AWG.Stations.handlers.Command
           }
         }
       };
-      try
-      {
-        return await cbclinet.CreateSubscritpion(sub);
-      }
-      catch
-      {
-        return null;
-      }
+
+      return await cbclient.CreateSubscription(sub);
     }
 
-    public async Task<Unit> Handle(UnSubscribeStation request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UnsubscribeStation request, CancellationToken cancellationToken)
     {
-
       var contextBorkerUrl = this.configuration["ContextBroker:url"];
-      var contextBrokerNotificationEndpoint = this.configuration["ContextBroker:notificationEndpoint"];
-      var cbclinet = new ContextBrokerClient(contextBorkerUrl);
+      var cbclient = new ContextBrokerClient(contextBorkerUrl);
 
+      var subscription = await cbclient.GetSubscription(request.SubscriptionId);
 
-      var subscription = await cbclinet.GetSubscritpion(request.subId);
       if (subscription != null)
-        await cbclinet.DeleteSubscritpion(request.subId);
+        await cbclient.DeleteSubscription(request.SubscriptionId);
 
       return Unit.Value;
     }
   }
-
 }

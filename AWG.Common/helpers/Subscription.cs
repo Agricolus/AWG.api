@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AWG.Stations.handlers.Helpers.Enums;
+using AWG.Common.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace AWG.Stations.handlers.Helpers
+namespace AWG.Common.Helpers
 {
   [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy), ItemNullValueHandling = NullValueHandling.Ignore)]
   public class Subscription
@@ -89,7 +89,4 @@ namespace AWG.Stations.handlers.Helpers
     public string Type { get; set; }
     public string TypePattern { get; set; }
   }
-
-
-
 }

@@ -6,11 +6,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using AWG.Common.Enums;
 using AWG.FIWARE.Serializers;
-using AWG.Stations.handlers.Helpers.Enums;
 using Newtonsoft.Json;
 
-namespace AWG.Stations.handlers.Helpers
+namespace AWG.Common.Helpers
 {
   public class ContextBrokerClient
   {
@@ -108,7 +108,7 @@ namespace AWG.Stations.handlers.Helpers
       throw new Exception($"entity creation failed with code: {response.StatusCode} - {responsetext}");
     }
 
-    public async Task AppendEntitiy<T>(string entityId, T entityObject, string entityType = null, bool strictAppend = false) where T : class, new()
+    public async Task AppendEntity<T>(string entityId, T entityObject, string entityType = null, bool strictAppend = false) where T : class, new()
     {
       string uri = $"{apiVersion}/entities/{entityId}/attrs";
       Uri requestUri;
@@ -118,9 +118,8 @@ namespace AWG.Stations.handlers.Helpers
       if (entityType != null)
         queryString.Add("type", entityType);
       if (strictAppend)
-        queryString.Add("options", "append"); //qui la semantica di options è fatta proprio male
+        queryString.Add("options", "append");
       retrieveEntityUri.Query = queryString.ToString();
-
 
       var entityString = JsonConvert.SerializeObject(entityObject, new FiwareNormalizedJsonConverter<T>());
 
@@ -133,7 +132,7 @@ namespace AWG.Stations.handlers.Helpers
       }
     }
 
-    public async Task UpdateEntitiy<T>(string entityId, T entityObject, string entityType = null, AttributesFormatEnum options = AttributesFormatEnum.normalized) where T : class, new()
+    public async Task UpdateEntity<T>(string entityId, T entityObject, string entityType = null, AttributesFormatEnum options = AttributesFormatEnum.normalized) where T : class, new()
     {
       string uri = $"{apiVersion}/entities/{entityId}/attrs";
       Uri requestUri;
@@ -163,7 +162,7 @@ namespace AWG.Stations.handlers.Helpers
       }
     }
 
-    public async Task RemoveEntitiy(string entityId, string entityType = null)
+    public async Task RemoveEntity(string entityId, string entityType = null)
     {
       string uri = $"{apiVersion}/entities/{entityId}";
       Uri requestUri;
@@ -184,7 +183,7 @@ namespace AWG.Stations.handlers.Helpers
       }
     }
 
-    public async Task<T> RetrieveEntitiy<T>(string entityId, string entityType = null, string[] entityAttributes = null) where T : class, new()
+    public async Task<T> RetrieveEntity<T>(string entityId, string entityType = null, string[] entityAttributes = null) where T : class, new()
     {
       string uri = $"{apiVersion}/entities/{entityId}";
       Uri requestUri;
@@ -210,7 +209,7 @@ namespace AWG.Stations.handlers.Helpers
       return deserialized;
     }
 
-    public async Task<IEnumerable<Subscription>> ListSubscritpions()
+    public async Task<IEnumerable<Subscription>> ListSubscriptions()
     {
       var response = await client.GetAsync($"{apiVersion}/subscriptions");
 
@@ -221,9 +220,9 @@ namespace AWG.Stations.handlers.Helpers
       return deserialized;
     }
 
-    public async Task<Subscription> GetSubscritpion(string subscipionId)
+    public async Task<Subscription> GetSubscription(string subscriptionId)
     {
-      var response = await client.GetAsync($"{apiVersion}/subscriptions/{subscipionId}");
+      var response = await client.GetAsync($"{apiVersion}/subscriptions/{subscriptionId}");
 
       if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
       {
@@ -237,7 +236,7 @@ namespace AWG.Stations.handlers.Helpers
       return deserialized;
     }
 
-    public async Task<string> CreateSubscritpion(Subscription sub)
+    public async Task<string> CreateSubscription(Subscription sub)
     {
       var contentString = JsonConvert.SerializeObject(sub);
 
@@ -251,14 +250,14 @@ namespace AWG.Stations.handlers.Helpers
       throw new Exception($"subscription creation failed with code: {response.StatusCode} - {responsetext}");
     }
 
-    public async Task UpdateSubscritpion(string subscipionId, DateTime expire)
+    public async Task UpdateSubscription(string subscriptionId, DateTime expire)
     {
       var expireObject = new
       {
         expires = expire
       };
       var contentString = JsonConvert.SerializeObject(expireObject);
-      var response = await client.PatchAsync($"{apiVersion}/subscriptions/{subscipionId}", new StringContent(contentString, Encoding.UTF8, "application/json"));
+      var response = await client.PatchAsync($"{apiVersion}/subscriptions/{subscriptionId}", new StringContent(contentString, Encoding.UTF8, "application/json"));
 
       if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
       {
@@ -267,9 +266,9 @@ namespace AWG.Stations.handlers.Helpers
       }
     }
 
-    public async Task DeleteSubscritpion(string subscipionId)
+    public async Task DeleteSubscription(string subscriptionId)
     {
-      var response = await client.DeleteAsync($"{apiVersion}/subscriptions/{subscipionId}");
+      var response = await client.DeleteAsync($"{apiVersion}/subscriptions/{subscriptionId}");
 
       if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
       {
@@ -277,7 +276,5 @@ namespace AWG.Stations.handlers.Helpers
         throw new Exception($"subscription delete failed with code: {response.StatusCode} - {responsetext}");
       }
     }
-
   }
-
 }

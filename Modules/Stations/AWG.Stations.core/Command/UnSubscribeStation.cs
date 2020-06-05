@@ -2,8 +2,8 @@ using MediatR;
 
 namespace AWG.Stations.core.Command
 {
-  public class UnSubscribeStation : IRequest
+  public class UnsubscribeStation : IRequest
   {
-    public string subId { get; set; }
+    public string SubscriptionId { get; set; }
   }
 }
