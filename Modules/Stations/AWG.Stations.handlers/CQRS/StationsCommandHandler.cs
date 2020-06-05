@@ -54,7 +54,7 @@ namespace AWG.Stations.handlers.Command
 
       await mediator.Publish(new UpdateStationNotification() { Id = station.Id });
 
-      if (station.Source == null)
+      if (String.IsNullOrEmpty(station.Source))
       {
         var subscriptionId = await mediator.Send(new SubscribeStation() { Id = station.Id });
 

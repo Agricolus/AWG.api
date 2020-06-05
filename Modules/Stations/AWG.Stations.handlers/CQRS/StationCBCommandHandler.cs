@@ -8,6 +8,8 @@ using System;
 using Microsoft.Extensions.Configuration;
 using AWG.Common.Helpers;
 using fiware = AWG.FIWARE.DataModels;
+using AWG.Common.Enums;
+using AWG.Stations.core.Query;
 
 namespace AWG.Stations.handlers.Command
 {
@@ -15,11 +17,13 @@ namespace AWG.Stations.handlers.Command
   {
     private readonly StationsContext db;
     private readonly IConfiguration configuration;
+    private readonly IMediator mediator;
 
-    public StationCBCommandHandler(StationsContext db, IConfiguration configuration)
+    public StationCBCommandHandler(StationsContext db, IConfiguration configuration, IMediator mediator)
     {
       this.db = db;
       this.configuration = configuration;
+      this.mediator = mediator;
     }
 
     public async Task<string> Handle(SubscribeStation request, CancellationToken cancellationToken)
@@ -32,12 +36,9 @@ namespace AWG.Stations.handlers.Command
 
       if (device == null)
       {
-        device = new fiware.Device()
-        {
-          Id = request.Id
-        };
+        device = await mediator.Send(new GetStation() { Id = request.Id });
 
-        await cbclient.CreateEntity<fiware.Device>(device);
+        await cbclient.CreateEntity<fiware.Device>(device, AttributesFormatEnum.keyValues);
       }
 
       var sub = new Subscription()

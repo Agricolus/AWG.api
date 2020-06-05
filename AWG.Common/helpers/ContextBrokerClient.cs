@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AWG.Common.Enums;
 using AWG.FIWARE.Serializers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace AWG.Common.Helpers
 {
@@ -94,7 +95,13 @@ namespace AWG.Common.Helpers
       if (options == AttributesFormatEnum.normalized)
         entityString = JsonConvert.SerializeObject(entityObject, new FiwareNormalizedJsonConverter<T>());
       else if (options == AttributesFormatEnum.keyValues)
-        entityString = JsonConvert.SerializeObject(entityObject);
+        entityString = JsonConvert.SerializeObject(entityObject, new JsonSerializerSettings
+        {
+          ContractResolver = new DefaultContractResolver
+          {
+            NamingStrategy = new SnakeCaseNamingStrategy()
+          }
+        });
       else
         throw new Exception($"attribute format not supported for this operation: {(AttributesFormatEnum)options}");
 
