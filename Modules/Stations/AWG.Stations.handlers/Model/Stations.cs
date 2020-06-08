@@ -20,7 +20,7 @@ namespace AWG.Stations.handlers.Model
     public string Id { get; set; }
     public string Type { get; private set; } = "Device";
     public string Source { get; set; }
-    public Uri DataProvider { get; set; }
+    public string DataProvider { get; set; }
 
     [NotMapped]
     public IEnumerable<string> Category { get; set; }

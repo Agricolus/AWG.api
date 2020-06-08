@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using AWG.Measures.core.Query;
 using AWG.Measures.core.Dto;
 using AWG.Measures.core.Command;
 using fiware = AWG.FIWARE.DataModels;
+using AWG.Common.Helpers;
 
 namespace AWG.Measures.api.Controllers
 {
@@ -25,14 +27,24 @@ namespace AWG.Measures.api.Controllers
     }
 
     [Route(""), HttpPost, HttpPut]
-    public async Task<IActionResult> PostMeasure([FromBody] fiware.WeatherObserved model)
+    public async Task<IActionResult> PostMeasure([FromBody] Notification<fiware.WeatherObserved> notification)
     {
+      var model = notification.DataTyped.FirstOrDefault();
+
+      if (model == null)
+        return BadRequest("notification with no data");
+
       return Ok(await mediator.Send(new AddMeasure() { Model = model }));
     }
 
     [Route("~/api/measures-ld"), HttpPost, HttpPut]
-    public async Task<IActionResult> PostMeasure([FromBody] fiware.WeatherObservedLD model)
+    public async Task<IActionResult> PostMeasure([FromBody] Notification<fiware.WeatherObservedLD> notification)
     {
+      var model = notification.DataTyped.FirstOrDefault();
+
+      if (model == null)
+        return BadRequest("notification with no data");
+
       return Ok(await mediator.Send(new AddMeasure() { Model = model }));
     }
 

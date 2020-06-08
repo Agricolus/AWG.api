@@ -25,31 +25,21 @@ namespace AWG.Measures.handlers.Command
 
     public async Task<fiware.WeatherObserved> Handle(AddMeasure request, CancellationToken cancellationToken)
     {
-      var measure = db.WeatherObserved.Where(m => m.RefDevice == request.Model.RefDevice && m.Id == request.Model.Id).FirstOrDefault();
+      var measure = mapper.Map<WeatherObserved>(request.Model);
+
       var now = DateTime.UtcNow;
 
-      if (measure == null)
-      {
-        measure = mapper.Map<WeatherObserved>(request.Model);
-
-        measure.Id = $"urn:ngsi-ld:WeatherObserved:{Guid.NewGuid().ToString()}";
-        measure.DateCreated = now;
-
-        db.WeatherObserved.Add(measure);
-      }
-      else
-      {
-        mapper.Map(request.Model, measure);
-      }
-
+      measure.Id = $"urn:ngsi-ld:WeatherObserved:{Guid.NewGuid().ToString()}";
+      measure.DateCreated = now;
       measure.DateModified = now;
+
+      db.WeatherObserved.Add(measure);
 
       await db.SaveChangesAsync();
 
       var result = mapper.Map<fiware.WeatherObserved>(measure);
 
       await mediator.Publish(new UpdateMeasureNotification() { Measure = result });
-
 
       return result;
     }

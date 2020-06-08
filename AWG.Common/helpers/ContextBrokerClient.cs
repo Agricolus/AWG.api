@@ -153,7 +153,13 @@ namespace AWG.Common.Helpers
       if (options == AttributesFormatEnum.keyValues)
       {
         queryString.Add("options", "keyValues");
-        entityString = JsonConvert.SerializeObject(entityObject);
+        entityString = JsonConvert.SerializeObject(entityObject, new JsonSerializerSettings
+        {
+          ContractResolver = new DefaultContractResolver
+          {
+            NamingStrategy = new SnakeCaseNamingStrategy()
+          }
+        });
       }
       else
       {

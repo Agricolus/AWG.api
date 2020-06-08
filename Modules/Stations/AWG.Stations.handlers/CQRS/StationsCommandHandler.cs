@@ -54,9 +54,11 @@ namespace AWG.Stations.handlers.Command
 
       await mediator.Publish(new UpdateStationNotification() { Id = station.Id });
 
+      var entityId = await mediator.Send(new CreateOrUpdateCBEntity() { Id = station.Id });
+
       if (String.IsNullOrEmpty(station.Source))
       {
-        var subscriptionId = await mediator.Send(new SubscribeStation() { Id = station.Id });
+        var subscriptionId = await mediator.Send(new SubscribeToCBEntity() { Id = entityId });
 
         if (subscriptionId != null)
         {
@@ -73,7 +75,7 @@ namespace AWG.Stations.handlers.Command
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
-      await mediator.Send(new UnsubscribeStation() { SubscriptionId = station.Source });
+      await mediator.Send(new UnsubscribeFromCBEntity() { SubscriptionId = station.Source });
 
       db.Stations.Remove(station);
 
