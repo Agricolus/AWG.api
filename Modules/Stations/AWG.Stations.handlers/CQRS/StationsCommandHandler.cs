@@ -36,7 +36,7 @@ namespace AWG.Stations.handlers.Command
       {
         station = mapper.Map<Model.Station>(request.Model);
 
-        station.Id = $"urn:ngsi-ld:Device:{Guid.NewGuid().ToString()}";
+        station.Id = $"urn:ngsi-ld:Device:{station.DataProvider}-{station.SerialNumber}";
         station.DateCreated = now;
         station.Category = new List<string>() { "sensor" };
         station.Owner = new List<string>();

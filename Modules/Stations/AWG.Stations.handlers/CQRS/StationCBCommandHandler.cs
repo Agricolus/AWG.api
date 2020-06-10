@@ -38,13 +38,14 @@ namespace AWG.Stations.handlers.Command
       var cbclient = new ContextBrokerClient(fiwareService, fiwareServicePath, contextBorkerUrl);
 
       var station = await mediator.Send(new GetStation() { Id = request.Id });
-      var device = await cbclient.RetrieveEntity<fiware.WeatherObserved>(station.Id, "WeatherObserved");
+      var entityId = $"urn:ngsi-ld:WeatherObserved:{station.DataProvider}-{station.SerialNumber}";
+      var device = await cbclient.RetrieveEntity<fiware.WeatherObserved>(entityId, "WeatherObserved");
 
       if (device == null)
       {
         device = new fiware.WeatherObserved()
         {
-          Id = $"urn:ngsi-ld:WeatherObserved:{Guid.NewGuid().ToString()}",
+          Id = entityId,
           RefDevice = station.Id,
           DateCreated = station.DateCreated,
           DateModified = station.DateModified,
@@ -72,7 +73,7 @@ namespace AWG.Stations.handlers.Command
           Location = station.Location
         };
 
-        await cbclient.UpdateEntity<WeatherObservedUpdate>(station.Id, entity, "WeatherObserved", AttributesFormatEnum.keyValues);
+        await cbclient.UpdateEntity<WeatherObservedUpdate>(entityId, entity, "WeatherObserved", AttributesFormatEnum.keyValues);
       }
 
       return device.Id;

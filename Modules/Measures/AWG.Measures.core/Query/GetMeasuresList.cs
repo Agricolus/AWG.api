@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using System;
 using System.Collections.Generic;
-using fiware = AWG.FIWARE.DataModels;
+using AWG.Measures.core.Dto;
 
 namespace AWG.Measures.core.Query
 {
-  public class GetMeasuresList : IRequest<IEnumerable<fiware.WeatherObserved>>
+  public class GetMeasuresList : IRequest<IEnumerable<MeasureDetail>>
   {
     public string StationId { get; set; }
     public DateTime FromDate { get; set; }

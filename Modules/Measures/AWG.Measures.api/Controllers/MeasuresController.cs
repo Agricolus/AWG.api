@@ -49,7 +49,7 @@ namespace AWG.Measures.api.Controllers
     }
 
     [Route("last"), HttpGet]
-    public async Task<fiware.WeatherObserved> GetLastMeasure(string stationId)
+    public async Task<MeasureDetail> GetLastMeasure(string stationId)
     {
       return await mediator.Send(new GetLastMeasure() { StationId = stationId });
     }
@@ -88,7 +88,7 @@ namespace AWG.Measures.api.Controllers
     }
 
     [Route("interval"), HttpGet]
-    public async Task<IEnumerable<fiware.WeatherObserved>> GetMeasureList(string stationId, DateTime fromDate, DateTime? toDate = null)
+    public async Task<IEnumerable<MeasureDetail>> GetMeasureList(string stationId, DateTime fromDate, DateTime? toDate = null)
     {
       return await mediator.Send(new GetMeasuresList()
       {

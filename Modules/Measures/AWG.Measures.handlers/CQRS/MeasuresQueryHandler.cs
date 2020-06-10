@@ -10,12 +10,11 @@ using AWG.Measures.handlers.Model;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using fiware = AWG.FIWARE.DataModels;
 
 namespace AWG.Measures.handlers.Query
 {
-  public class MeasuresQueryHandler : IRequestHandler<GetLastMeasure, fiware.WeatherObserved>,
-                                      IRequestHandler<GetMeasuresList, IEnumerable<fiware.WeatherObserved>>,
+  public class MeasuresQueryHandler : IRequestHandler<GetLastMeasure, MeasureDetail>,
+                                      IRequestHandler<GetMeasuresList, IEnumerable<MeasureDetail>>,
                                       IRequestHandler<GetDailyMeasures, IEnumerable<DailyMeasureDetail>>,
                                       IRequestHandler<GetWeeklyMeasures, IEnumerable<WeeklyMeasureDetail>>,
                                       IRequestHandler<GetMonthlyMeasures, IEnumerable<MonthlyMeasureDetail>>
@@ -31,23 +30,21 @@ namespace AWG.Measures.handlers.Query
       this.mapper = mapper;
     }
 
-    public async Task<fiware.WeatherObserved> Handle(GetLastMeasure request, CancellationToken cancellationToken)
+    public async Task<MeasureDetail> Handle(GetLastMeasure request, CancellationToken cancellationToken)
     {
-      var result = await (from m in db.WeatherObserved
-                          where m.RefDevice == request.StationId
-                          orderby m.DateObserved descending
-                          select m).Take(1).FirstOrDefaultAsync();
-
-      return mapper.Map<fiware.WeatherObserved>(result);
+      return await (from m in db.WeatherObserved
+                    where m.RefDevice == request.StationId
+                    orderby m.DateObserved descending
+                    select m).Take(1).ProjectTo<MeasureDetail>(mapper.ConfigurationProvider).FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<fiware.WeatherObserved>> Handle(GetMeasuresList request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MeasureDetail>> Handle(GetMeasuresList request, CancellationToken cancellationToken)
     {
       return await (from m in db.WeatherObserved
                     where m.DateObserved >= request.FromDate &&
                           m.DateObserved < request.ToDate &&
                           m.RefDevice == request.StationId
-                    select m).OrderBy(f => f.DateObserved).ProjectTo<fiware.WeatherObserved>(mapper.ConfigurationProvider).ToListAsync();
+                    select m).OrderBy(f => f.DateObserved).ProjectTo<MeasureDetail>(mapper.ConfigurationProvider).ToListAsync();
     }
 
     public async Task<IEnumerable<DailyMeasureDetail>> Handle(GetDailyMeasures request, CancellationToken cancellationToken)
