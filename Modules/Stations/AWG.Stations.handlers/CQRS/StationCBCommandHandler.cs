@@ -31,9 +31,11 @@ namespace AWG.Stations.handlers.Command
 
     public async Task<string> Handle(CreateOrUpdateCBEntity request, CancellationToken cancellationToken)
     {
-      var contextBorkerUrl = this.configuration["ContextBroker:url"];
-      var contextBrokerNotificationEndpoint = this.configuration["ContextBroker:notificationEndpoint"];
-      var cbclient = new ContextBrokerClient(contextBorkerUrl);
+      var contextBorkerUrl = this.configuration["ContextBroker:Url"];
+      var fiwareService = this.configuration["FiwareServices:Service"];
+      var fiwareServicePath = this.configuration["FiwareServices:ServicePath"];
+
+      var cbclient = new ContextBrokerClient(fiwareService, fiwareServicePath, contextBorkerUrl);
 
       var station = await mediator.Send(new GetStation() { Id = request.Id });
       var device = await cbclient.RetrieveEntity<fiware.WeatherObserved>(station.Id, "WeatherObserved");
@@ -78,13 +80,17 @@ namespace AWG.Stations.handlers.Command
 
     public async Task<string> Handle(SubscribeToCBEntity request, CancellationToken cancellationToken)
     {
-      var contextBorkerUrl = this.configuration["ContextBroker:url"];
-      var contextBrokerNotificationEndpoint = this.configuration["ContextBroker:notificationEndpoint"];
-      var cbclient = new ContextBrokerClient(contextBorkerUrl);
+      var contextBorkerUrl = this.configuration["ContextBroker:Url"];
+      var fiwareService = this.configuration["FiwareServices:Service"];
+      var fiwareServicePath = this.configuration["FiwareServices:ServicePath"];
+
+      var cbclient = new ContextBrokerClient(fiwareService, fiwareServicePath, contextBorkerUrl);
 
       var device = await cbclient.RetrieveEntity<fiware.WeatherObserved>(request.Id, "WeatherObserved");
       if (device == null)
         return null;
+
+      var contextBrokerNotificationEndpoint = this.configuration["ContextBroker:NotificationEndpoint"];
 
       var sub = new Subscription()
       {
@@ -111,8 +117,11 @@ namespace AWG.Stations.handlers.Command
 
     public async Task<Unit> Handle(UnsubscribeFromCBEntity request, CancellationToken cancellationToken)
     {
-      var contextBorkerUrl = this.configuration["ContextBroker:url"];
-      var cbclient = new ContextBrokerClient(contextBorkerUrl);
+      var contextBorkerUrl = this.configuration["ContextBroker:Url"];
+      var fiwareService = this.configuration["FiwareServices:Service"];
+      var fiwareServicePath = this.configuration["FiwareServices:ServicePath"];
+
+      var cbclient = new ContextBrokerClient(fiwareService, fiwareServicePath, contextBorkerUrl);
 
       var subscription = await cbclient.GetSubscription(request.SubscriptionId);
 

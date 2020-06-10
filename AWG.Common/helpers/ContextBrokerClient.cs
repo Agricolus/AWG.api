@@ -18,12 +18,14 @@ namespace AWG.Common.Helpers
     private readonly HttpClient client;
     private string apiVersion;
 
-    public ContextBrokerClient(string contextBrokerUrl, string apiVersion = "v2")
+    public ContextBrokerClient(string service, string servicePath, string url, string apiVersion = "v2")
     {
       this.client = new HttpClient();
       client.DefaultRequestHeaders.Accept.Clear();
       client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-      this.client.BaseAddress = new Uri($"{contextBrokerUrl}");
+      client.DefaultRequestHeaders.Add("fiware-service", service);
+      client.DefaultRequestHeaders.Add("fiware-servicepath", servicePath);
+      this.client.BaseAddress = new Uri($"{url}");
       this.apiVersion = apiVersion;
     }
 
