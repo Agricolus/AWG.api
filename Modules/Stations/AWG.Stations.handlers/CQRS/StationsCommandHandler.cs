@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.CompilerServices;
-using System;
+﻿using System;
 using MediatR;
 using AWG.Stations.handlers.Model;
 using System.Threading.Tasks;
