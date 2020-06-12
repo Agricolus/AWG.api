@@ -63,6 +63,7 @@ This Gateway is both a standalone application and a data gateway for agroweather
 
 * Data harmonization done with NGSI-LD Data Models (updating Observed Data Model)​
 * APIs for data access​
+* IoT Agents to get the weather data
 * Admin frontend with overall sensors dashboard​
 * End user portal that will have access to data​
 
@@ -78,8 +79,9 @@ AWG is composed of some backend services, one frontend web application plus a va
 2. [Keyrock Identity Manager](https://github.com/ging/fiware-idm)
 3. [Orion-LD Context Broker](https://github.com/Fiware/context.Orion-LD)
 4. [Wilma PEP Proxy](https://github.com/ging/fiware-pep-proxy)
-5. [APIs](https://github.com/Agricolus/awg.api)
-6. [Web Frontend](https://github.com/Agricolus/awg.frontend)
+5. [IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent)
+6. [APIs](https://github.com/Agricolus/awg.api)
+7. [Web Frontend](https://github.com/Agricolus/awg.frontend)
 
 #### Getting Started
 
@@ -135,13 +137,17 @@ networks:
     internal: true
 ```
 
+## IoT Agents
+
+See [SPEC.md](https://github.com/Agricolus/AWG.iot-agents/blob/master/SPEC.md).
+
 ## APIs
 
 See [SPEC.md](https://github.com/Agricolus/AWG.api/blob/master/SPEC.md).
 
 ## Frontend
 
-See the [Frontend Repository](https://github.com/Agricolus/AWG.frontend).
+See [SPEC.md](https://github.com/Agricolus/AWG.frontend/blob/master/SPEC.md).
 
 ## License
 
