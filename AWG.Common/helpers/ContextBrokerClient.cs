@@ -101,7 +101,7 @@ namespace AWG.Common.Helpers
         {
           ContractResolver = new DefaultContractResolver
           {
-            NamingStrategy = new SnakeCaseNamingStrategy()
+            NamingStrategy = new CamelCaseNamingStrategy()
           }
         });
       else
@@ -159,7 +159,7 @@ namespace AWG.Common.Helpers
         {
           ContractResolver = new DefaultContractResolver
           {
-            NamingStrategy = new SnakeCaseNamingStrategy()
+            NamingStrategy = new CamelCaseNamingStrategy()
           }
         });
       }

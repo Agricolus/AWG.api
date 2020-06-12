@@ -39,41 +39,42 @@ namespace AWG.Stations.handlers.Command
 
       var station = await mediator.Send(new GetStation() { Id = request.Id });
       var entityId = $"urn:ngsi-ld:WeatherObserved:{station.DataProvider}-{station.SerialNumber}";
-      var device = await cbclient.RetrieveEntity<fiware.WeatherObserved>(entityId, "WeatherObserved");
+      var device = await cbclient.RetrieveEntity<WeatherObservedCBEntity>(entityId, "WeatherObserved");
 
       if (device == null)
       {
-        device = new fiware.WeatherObserved()
+        device = new WeatherObservedCBEntity()
         {
           Id = entityId,
           RefDevice = station.Id,
-          DateCreated = station.DateCreated,
-          DateModified = station.DateModified,
+          DateCreated = station.DateCreated.ToString("u"),
+          DateModified = station.DateModified.ToString("u"),
           DataProvider = station.DataProvider,
+          DateObserved = null,
           Source = station.Source,
           Name = station.Name,
           Location = station.Location
         };
 
-        await cbclient.CreateEntity<fiware.WeatherObserved>(device, AttributesFormatEnum.keyValues);
+        await cbclient.CreateEntity<WeatherObservedCBEntity>(device, AttributesFormatEnum.keyValues);
       }
       else
       {
         // To update the entity I must have an object without id and type properties
         // It must contains only the properties to updated
         // https://fiware-orion.readthedocs.io/en/1.8.0/user/walkthrough_apiv2/index.html#update-entity
-        var entity = new WeatherObservedUpdate()
+        var entity = new WeatherObservedCBEntityUpdate()
         {
           RefDevice = station.Id,
-          DateCreated = station.DateCreated,
-          DateModified = station.DateModified,
+          DateCreated = station.DateCreated.ToString("u"),
+          DateModified = station.DateModified.ToString("u"),
           DataProvider = station.DataProvider,
           Source = station.Source,
           Name = station.Name,
           Location = station.Location
         };
 
-        await cbclient.UpdateEntity<WeatherObservedUpdate>(entityId, entity, "WeatherObserved", AttributesFormatEnum.keyValues);
+        await cbclient.UpdateEntity<WeatherObservedCBEntityUpdate>(entityId, entity, "WeatherObserved", AttributesFormatEnum.keyValues);
       }
 
       return device.Id;
