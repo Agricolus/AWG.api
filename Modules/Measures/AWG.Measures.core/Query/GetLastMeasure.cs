@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using fiware = AWG.FIWARE.DataModels;
+using AWG.Measures.core.Dto;
 
 namespace AWG.Measures.core.Query
 {
-  public class GetLastMeasure : IRequest<fiware.WeatherObserved>
+  public class GetLastMeasure : IRequest<MeasureDetail>
   {
     public string StationId { get; set; }
   }

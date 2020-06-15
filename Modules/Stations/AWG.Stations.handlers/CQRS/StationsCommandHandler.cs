@@ -35,7 +35,7 @@ namespace AWG.Stations.handlers.Command
       {
         station = mapper.Map<Model.Station>(request.Model);
 
-        station.Id = $"urn:ngsi-ld:Device:{Guid.NewGuid().ToString()}";
+        station.Id = $"urn:ngsi-ld:Device:{station.DataProvider}-{station.SerialNumber}";
         station.DateCreated = now;
         station.Category = new List<string>() { "sensor" };
         station.Owner = new List<string>();
@@ -53,12 +53,28 @@ namespace AWG.Stations.handlers.Command
 
       await mediator.Publish(new UpdateStationNotification() { Id = station.Id });
 
+      var entityId = await mediator.Send(new CreateOrUpdateCBEntity() { Id = station.Id });
+
+      if (String.IsNullOrEmpty(station.Source))
+      {
+        var subscriptionId = await mediator.Send(new SubscribeToCBEntity() { Id = entityId });
+
+        if (subscriptionId != null)
+        {
+          station.Source = subscriptionId;
+
+          await db.SaveChangesAsync();
+        }
+      }
+
       return mapper.Map<fiware.Device>(station);
     }
 
     public async Task<Unit> Handle(DeleteStation request, CancellationToken cancellationToken)
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+
+      await mediator.Send(new UnsubscribeFromCBEntity() { SubscriptionId = station.Source });
 
       db.Stations.Remove(station);
 
