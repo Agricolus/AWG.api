@@ -74,11 +74,14 @@ namespace AWG.Stations.handlers.Command
     {
       var station = await db.Stations.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
 
-      await mediator.Send(new UnsubscribeFromCBEntity() { SubscriptionId = station.Source });
+      if (station == null)
+        return Unit.Value;
 
       db.Stations.Remove(station);
 
       await db.SaveChangesAsync();
+
+      await mediator.Send(new UnsubscribeFromCBEntity() { SubscriptionId = station.Source });
 
       return Unit.Value;
     }

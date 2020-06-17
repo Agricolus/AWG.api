@@ -12,10 +12,23 @@
     <PackageReference Include="MediatR" Version="8.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
+
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data/stations.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data/measures.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-  <ProjectReference Include="..\..\Modules\Stations\AWG.Stations.api\AWG.Stations.api.csproj" />
-</ItemGroup>
+    <ProjectReference Include="..\..\Modules\Stations\AWG.Stations.core\AWG.Stations.core.csproj" />
+    <ProjectReference Include="..\..\Modules\Stations\AWG.Stations.handlers\AWG.Stations.handlers.csproj" />
+    <ProjectReference Include="..\..\Modules\Measures\AWG.Measures.core\AWG.Measures.core.csproj" />
+    <ProjectReference Include="..\..\Modules\Measures\AWG.Measures.handlers\AWG.Measures.handlers.csproj" />
+  </ItemGroup>
 
 </Project>

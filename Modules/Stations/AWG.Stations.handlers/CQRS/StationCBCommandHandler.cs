@@ -119,6 +119,9 @@ namespace AWG.Stations.handlers.Command
 
     public async Task<Unit> Handle(UnsubscribeFromCBEntity request, CancellationToken cancellationToken)
     {
+      if (String.IsNullOrEmpty(request.SubscriptionId))
+        return Unit.Value;
+
       var contextBorkerUrl = this.configuration["ContextBroker:Url"];
       var fiwareService = this.configuration["FiwareServices:Service"];
       var fiwareServicePath = this.configuration["FiwareServices:ServicePath"];
