@@ -54,5 +54,6 @@
   "vetur.format.defaultFormatter.html": "prettyhtml",
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.format.defaultFormatter.less": "prettier",
-  "vetur.format.options.tabSize": 2
+  "vetur.format.options.tabSize": 2,
+  "dotnet-test-explorer.testProjectPath": "Tests/**/*.csproj"
 }
