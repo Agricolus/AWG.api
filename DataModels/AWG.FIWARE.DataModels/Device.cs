@@ -29,6 +29,7 @@ namespace AWG.FIWARE.DataModels
     public string DataProvider { get; set; }
     public IEnumerable<string> Category { get; set; }
     public IEnumerable<string> ControlledProperty { get; set; }
+    [Relationship]
     public IEnumerable<string> ControlledAsset { get; set; }
     public string Mnc { get; set; }
     public string Mcc { get; set; }
@@ -60,6 +61,7 @@ namespace AWG.FIWARE.DataModels
 
     public string SerialNumber { get; set; }
     public object Provider { get; set; }
+    [Relationship]
     public string RefDeviceModel { get; set; }
     public double? BatteryLevel { get; set; }
     public double? Rssi { get; set; }

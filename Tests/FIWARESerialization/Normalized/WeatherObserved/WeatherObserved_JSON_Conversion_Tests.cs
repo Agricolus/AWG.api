@@ -45,7 +45,7 @@ namespace Normalized.WeatherObserved
     }
 
     //check if a WeatherObserved object serialization is conform to the schema definition
-    [TestMethod]
+    /*[TestMethod]
     public void Serialization_IsConformToSchema()
     {
       string jsonSchema = System.IO.File.ReadAllText(@"WeatherObserved.schema.json");
@@ -88,6 +88,6 @@ namespace Normalized.WeatherObserved
       var isValid = weatherObservedJObject.IsValid(schema, out messages);
 
       Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}\nJSON:{1}", string.Join("\n\t\t\t", messages), JsonConvert.SerializeObject(weatherObservedJObject, Formatting.Indented));
-    }
+    }*/
   }
 }
