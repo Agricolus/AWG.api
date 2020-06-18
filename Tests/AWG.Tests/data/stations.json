@@ -1,0 +1,108 @@
+{
+  "GetAllActiveStations": {
+    "skip": "0",
+    "take": "20"
+  },
+  "GetStation": {
+    "id": "urn:ngsi-ld:Device:PESSL-01208D30"
+  },
+  "GetNearestStations": {
+    "longitude": "12",
+    "latitude": "43",
+    "skip": "0",
+    "take": "20"
+  },
+  "CreateStation": {
+    "model": {
+      "id": null,
+      "type": "Device",
+      "source": null,
+      "dataProvider": "UNITTEST",
+      "category": null,
+      "controlledProperty": [],
+      "controlledAsset": [],
+      "mnc": null,
+      "mcc": null,
+      "macAddress": [],
+      "ipAddress": [],
+      "supportedProtocol": [],
+      "configuration": null,
+      "location": {
+        "coordinates": [
+          12.293701171875002,
+          43.15978133497769
+        ],
+        "type": "Point"
+      },
+      "name": "Station Unit Test",
+      "description": null,
+      "dateInstalled": "2020-01-01T00:00:00",
+      "dateFirstUsed": null,
+      "dateManufactured": null,
+      "hardwareVersion": null,
+      "softwareVersion": null,
+      "firmwareVersion": null,
+      "osVersion": null,
+      "dateLastCalibration": null,
+      "serialNumber": "UNITTEST",
+      "provider": null,
+      "refDeviceModel": null,
+      "batteryLevel": null,
+      "rssi": null,
+      "deviceState": null,
+      "dateLastValueReported": null,
+      "value": null,
+      "dateModified": "2020-01-01T00:00:00",
+      "dateCreated": "2020-01-01T00:00:00",
+      "owner": null
+    }
+  },
+  "CreateStationLD": {
+    "model": {
+      "id": null,
+      "type": "Device",
+      "source": null,
+      "dataProvider": "UNITTEST",
+      "category": null,
+      "controlledProperty": [],
+      "controlledAsset": [],
+      "mnc": null,
+      "mcc": null,
+      "macAddress": [],
+      "ipAddress": [],
+      "supportedProtocol": [],
+      "configuration": null,
+      "location": {
+        "coordinates": [
+          12,
+          43
+        ],
+        "type": "Point"
+      },
+      "name": "Station Unit Test",
+      "description": null,
+      "dateInstalled": "2020-01-01T00:00:00",
+      "dateFirstUsed": null,
+      "dateManufactured": null,
+      "hardwareVersion": null,
+      "softwareVersion": null,
+      "firmwareVersion": null,
+      "osVersion": null,
+      "dateLastCalibration": null,
+      "serialNumber": "UNITTEST",
+      "provider": null,
+      "refDeviceModel": null,
+      "batteryLevel": null,
+      "rssi": null,
+      "deviceState": null,
+      "dateLastValueReported": null,
+      "value": null,
+      "dateModified": "2020-01-01T00:00:00",
+      "dateCreated": "2020-01-01T00:00:00",
+      "owner": null
+    }
+  },
+  "DeleteStation": {
+    "id": "urn:ngsi-ld:Device:UNITTEST-UNITTEST"
+  }
+}

@@ -15,8 +15,6 @@ using Newtonsoft.Json.Serialization;
 
 namespace AWG.FIWARE.DataModels
 {
-
-  [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
   public class WeatherObservedLD : WeatherObserved
   { }
 

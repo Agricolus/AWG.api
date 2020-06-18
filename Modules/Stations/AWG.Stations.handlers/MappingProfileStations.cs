@@ -2,10 +2,9 @@ using AutoMapper;
 
 namespace AWG.Stations.handlers
 {
-  public class MappingProfile : Profile
+  public class MappingProfileStations : Profile
   {
-
-    public MappingProfile()
+    public MappingProfileStations()
     {
       CreateMap<AWG.Stations.handlers.Model.Station, AWG.FIWARE.DataModels.Device>().ReverseMap();
     }
