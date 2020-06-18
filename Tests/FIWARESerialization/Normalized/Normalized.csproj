@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="JsonDiffer" Version="0.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
@@ -14,7 +15,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.Serializers\AWG.FIWARE.Serializers.csproj" />
     <ProjectReference Include="..\..\..\DataModels\AWG.FIWARE.DataModels\AWG.FIWARE.DataModels.csproj" />
-    <Content Include="WeatherObserved\example.json" Link="example.json" CopyToOutputDirectory="Always" />
-    <Content Include="WeatherObserved\schema.json" Link="schema.json" CopyToOutputDirectory="Always" />
+    <Content Include="WeatherObserved\WeatherObserved.example.json" Link="WeatherObserved.example.json" CopyToOutputDirectory="Always" />
+    <Content Include="WeatherObserved\WeatherObserved.schema.json" Link="WeatherObserved.schema.json" CopyToOutputDirectory="Always" />
+    <Content Include="Device\Device.schema.json" Link="Device.schema.json" CopyToOutputDirectory="Always" />
+    <Content Include="Device\Device.example.json" Link="Device.example.json" CopyToOutputDirectory="Always" />
+    <Content Include="DeviceModel\DeviceModel.example.json" Link="DeviceModel.schema.json" CopyToOutputDirectory="Always" />
+    <Content Include="DeviceModel\DeviceModel.schema.json" Link="DeviceModel.schema.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>
