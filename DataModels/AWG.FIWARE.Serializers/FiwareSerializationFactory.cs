@@ -140,7 +140,7 @@ namespace AWG.FIWARE.Serializers
         else
         {
           if (NumberTypes.Contains(propertyType))
-            propertyValue = String.Format("{0:0.###########}", propertyType);
+            propertyValue = String.Format("{0:0.###########}", propertyValue);
           serializer.Serialize(writer, propertyValue);
         }
 
