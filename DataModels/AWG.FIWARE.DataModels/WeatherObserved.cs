@@ -1,4 +1,6 @@
 using System;
+using AWG.FIWARE.Serializers;
+using AWG.FIWARE.Serializers.Attributes;
 using BAMCIS.GeoJSON;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -18,56 +20,82 @@ namespace AWG.FIWARE.DataModels
   public class WeatherObservedLD : WeatherObserved
   { }
 
-  [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-  public class WeatherObserved
+  [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy), ItemNullValueHandling = NullValueHandling.Ignore)]
+  public class WeatherObserved : IContextBrokerEntity
   {
     public string Id { get; set; }
+
     public string Type { get; private set; } = "WeatherObserved";
-    [JsonProperty("data_provider")]
+
     public string DataProvider { get; set; }
+
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    [JsonProperty("date_modified")]
-    public DateTime DateModified { get; set; }
+    public DateTime? DateModified { get; }
+
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    [JsonProperty("date_created")]
-    public DateTime DateCreated { get; set; }
-    public string Name { get; set; }
+    public DateTime? DateCreated { get; }
+
+    public string StationName { get; set; }
+
+    [GeoJSON]
     public GeoJson Location { get; set; }
+
     public Address Address { get; set; }
+
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    [JsonProperty("date_observed")]
     public DateTime DateObserved { get; set; }
+
     public string Source { get; set; }
-    [JsonProperty("ref_device")]
+
     public string RefDevice { get; set; }
-    [JsonProperty("ref_point_of_interest")]
+
     public string RefPointOfInterest { get; set; }
+
     [JsonConverter(typeof(StringEnumConverter))]
-    [JsonProperty("weather_type")]
     public WeatherTypeEnum? WeatherType { get; set; }
-    [JsonProperty("dew_point")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? DewPoint { get; set; }
+
     [JsonConverter(typeof(StringEnumConverter))]
     public WeatherMeasureVisibilityEnum? Visibility { get; set; }
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? Temperature { get; set; }
-    [JsonProperty("relative_humidity")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? RelativeHumidity { get; set; }
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? Precipitation { get; set; }
-    [JsonProperty("wind_direction")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? WindDirection { get; set; }
-    [JsonProperty("wind_speed")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? WindSpeed { get; set; }
-    [JsonProperty("atmospheric_pressure")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? AtmosphericPressure { get; set; }
+
     [JsonConverter(typeof(StringEnumConverter))]
-    [JsonProperty("pressure_tendency")]
     public PressureTendencyEnum? PressureTendency { get; set; }
-    [JsonProperty("solar_radiation")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? SolarRadiation { get; set; }
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? Illuminance { get; set; }
-    [JsonProperty("stream_gauge")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? StreamGauge { get; set; }
-    [JsonProperty("snow_height")]
+
+    [JsonConverter(typeof(DecimalJsonConverter))]
     public double? SnowHeight { get; set; }
+
+    //previously missing
+    public string StationCode { get; set; }
+
+    public double? UvIndexMax { get; set; }
   }
 }

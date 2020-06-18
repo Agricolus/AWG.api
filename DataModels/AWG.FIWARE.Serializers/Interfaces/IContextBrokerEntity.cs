@@ -9,6 +9,6 @@ namespace AWG.FIWARE.Serializers
   public interface IContextBrokerEntity
   {
     string Id { get; set; }
-    string Type { get; set; }
+    string Type { get; }
   }
 }

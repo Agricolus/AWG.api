@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using AWG.FIWARE.Serializers;
 using BAMCIS.GeoJSON;
 using JsonDiffer;
+using JsonDiffPatchDotNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -34,10 +35,12 @@ namespace Normalized.WeatherObserved
 
       var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObservedDeserialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
 
-      var diff = JsonDifferentiator.Differentiate(JObject.Parse(exampleWeatherObservedSerialized), JObject.Parse(weatherObservedSerialized));
+      var jdp = new JsonDiffPatch();
+      var j1 = JObject.Parse(exampleWeatherObservedSerialized);
+      var j2 = JObject.Parse(weatherObservedSerialized);
+      JToken diff = jdp.Diff(j1, j2);
 
       string diffstring = JsonConvert.SerializeObject(diff, Formatting.Indented);
-      // Assert.AreEqual(exampletrimmed, serializedtrimmed);
       Assert.IsNull(diff, "differences:\n{0}", diffstring);
     }
 
@@ -59,18 +62,18 @@ namespace Normalized.WeatherObserved
         },
         AtmosphericPressure = 43.34,
         DataProvider = "data provider field",
-        DateCreated = new DateTime(),
-        DateModified = new DateTime(),
+        // DateCreated = new DateTime(),
+        // DateModified = new DateTime(),
         DateObserved = new DateTime(),
         DewPoint = null,
         Illuminance = null,
         Location = new Point(new Position(0, 0)),
-        Name = "i have no name, should have stationName",
+        StationName = "i have no name, should have stationName",
         Precipitation = null,
         PressureTendency = null,
         RefDevice = "Device:test",
         RefPointOfInterest = null,
-        RelativeHumidity = 44,
+        RelativeHumidity = 0.44,
         SnowHeight = null,
         Temperature = 25.25,
         Visibility = null,
@@ -80,14 +83,11 @@ namespace Normalized.WeatherObserved
       };
       var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObserved, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
 
-
-
-
       JObject weatherObservedJObject = JObject.Parse(weatherObservedSerialized);
-      IList<string> messages = new List<string>();
+      IList<ValidationError> messages = new List<ValidationError>();
       var isValid = weatherObservedJObject.IsValid(schema, out messages);
 
-      Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}", string.Join("\n\t\t\t", messages));
+      Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}\nJSON:{1}", string.Join("\n\t\t\t", messages), JsonConvert.SerializeObject(weatherObservedJObject, Formatting.Indented));
     }
   }
 }

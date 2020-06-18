@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using AWG.FIWARE.Serializers.Exceptions;
+using AWG.FIWARE.Serializers.Attributes;
 
 namespace AWG.FIWARE.Serializers
 {
@@ -115,6 +116,7 @@ namespace AWG.FIWARE.Serializers
       foreach (var contractProperty in contractTerms.Properties)
       {
         var propertyType = contractProperty.PropertyType;
+        var targetProperty = typeof(T).GetProperty(contractProperty.UnderlyingName);
         Type nullableProperty = Nullable.GetUnderlyingType(propertyType);
         if (nullableProperty != null)
           propertyType = nullableProperty;
@@ -132,19 +134,31 @@ namespace AWG.FIWARE.Serializers
         writer.WriteStartObject();
         writer.WritePropertyName("value");
         if (contractProperty.Converter != null)
+        {
           contractProperty.Converter.WriteJson(writer, propertyValue, serializer);
+        }
         else
+        {
+          if (NumberTypes.Contains(propertyType))
+            propertyValue = String.Format("{0:0.###########}", propertyType);
           serializer.Serialize(writer, propertyValue);
+        }
 
-        //if (NumberTypes.Contains(propertyType))
-        //  writer.WriteValue("Number");
+        // if (NumberTypes.Contains(propertyType))
+        //   writer.WriteValue("Number");
         //if (StringTypes.Contains(propertyType))
         //  writer.WriteValue("Text");
 
-        if (propertyType.GetInterface(typeof(IGeoJSON).Name) != null)
+        //geojson serialization
+        if (propertyType.GetInterface(typeof(IGeoJSON).Name) != null || Attribute.GetCustomAttribute(targetProperty, typeof(GeoJSON)) != null)
         {
           writer.WritePropertyName("type");
           writer.WriteValue("geo:json");
+        }
+        if (targetProperty.PropertyType.IsAssignableFrom(typeof(DateTime)))
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("DateTime");
         }
         writer.WriteEndObject();
       }
