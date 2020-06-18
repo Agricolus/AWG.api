@@ -38,6 +38,7 @@ namespace AWG.FIWARE.DataModels
     [GeoJSON]
     public GeoJson Location { get; set; }
 
+    [PostalAddress]
     public Address Address { get; set; }
 
     [JsonConverter(typeof(IsoDateTimeConverter))]
@@ -45,6 +46,7 @@ namespace AWG.FIWARE.DataModels
 
     public string Source { get; set; }
 
+    [Relationship]
     public string RefDevice { get; set; }
 
     public string RefPointOfInterest { get; set; }

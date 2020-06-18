@@ -76,6 +76,8 @@ namespace AWG.FIWARE.Serializers
                     targetProperty.SetValue(target, Enum.Parse(targetPropertyType, (string)result.Value));
                   else if (result.Value is JObject)
                     targetProperty.SetValue(target, ((JObject)result.Value).ToObject(targetPropertyType));
+                  else if (result.Value is JArray)
+                    targetProperty.SetValue(target, ((JArray)result.Value).ToObject(targetPropertyType));
                   else
                     targetProperty.SetValue(target, Convert.ChangeType(result.Value, targetPropertyType));
                 }
@@ -139,7 +141,7 @@ namespace AWG.FIWARE.Serializers
         }
         else
         {
-          if (NumberTypes.Contains(propertyType))
+          if (NumberTypes.Contains(propertyValue))
             propertyValue = String.Format("{0:0.###########}", propertyValue);
           serializer.Serialize(writer, propertyValue);
         }
@@ -154,6 +156,16 @@ namespace AWG.FIWARE.Serializers
         {
           writer.WritePropertyName("type");
           writer.WriteValue("geo:json");
+        }
+        if (Attribute.GetCustomAttribute(targetProperty, typeof(Relationship)) != null)
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("Relationship");
+        }
+        if (Attribute.GetCustomAttribute(targetProperty, typeof(PostalAddress)) != null)
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("PostalAddress");
         }
         if (targetProperty.PropertyType.IsAssignableFrom(typeof(DateTime)))
         {
