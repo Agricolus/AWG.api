@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace Standard.Device
+namespace FIWARESerialization.Tests.Standard.Device
 {
   [TestClass]
   public class Device_JSON_Conversion_Tests

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace Normalized.Device
+namespace FIWARESerialization.Tests.Normalized.Device
 {
   [TestClass]
   public class Device_JSON_Conversion_Tests
@@ -17,7 +17,7 @@ namespace Normalized.Device
     [TestMethod]
     public void Deserialization_Serialization_EndToEnd()
     {
-      string exampleDeviceSerialized = System.IO.File.ReadAllText(@"Device.example.json");
+      string exampleDeviceSerialized = System.IO.File.ReadAllText(@"Device.example.normalized.json");
       AWG.FIWARE.DataModels.Device deviceDeserialized = JsonConvert.DeserializeObject<AWG.FIWARE.DataModels.Device>(exampleDeviceSerialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.Device>());
 
       var deviceSerialized = JsonConvert.SerializeObject(deviceDeserialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.Device>());

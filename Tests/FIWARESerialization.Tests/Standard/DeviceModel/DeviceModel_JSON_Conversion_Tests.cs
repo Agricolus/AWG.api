@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace Standard.DeviceModel
+namespace FIWARESerialization.Tests.Standard.DeviceModel
 {
-  [TestClass]
+  // [TestClass]
   public class DeviceModel_JSON_Conversion_Tests
   {
-    [TestMethod]
+    // [TestMethod]
     public void Deserialization_Serialization_EndToEnd()
     {
       string exampleDeviceModelSerialized = System.IO.File.ReadAllText(@"DeviceModel.example.json");
@@ -31,7 +31,7 @@ namespace Standard.DeviceModel
     }
 
     //check if a DeviceModel object serialization is conform to the schema definition
-    [TestMethod]
+    // [TestMethod]
     public void Serialization_IsConformToSchema()
     {
       string jsonSchema = File.ReadAllText(@"DeviceModel.schema.json");

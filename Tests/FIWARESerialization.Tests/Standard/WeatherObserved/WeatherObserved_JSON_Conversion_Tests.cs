@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using AWG.FIWARE.Serializers;
 using BAMCIS.GeoJSON;
-using JsonDiffer;
 using JsonDiffPatchDotNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 
-namespace Normalized.WeatherObserved
+namespace FIWARESerialization.Tests.Standard.WeatherObserved
 {
   [TestClass]
   public class WeatherObserved_JSON_Conversion_Tests
@@ -31,9 +28,9 @@ namespace Normalized.WeatherObserved
     public void Deserialization_Serialization_EndToEnd()
     {
       string exampleWeatherObservedSerialized = System.IO.File.ReadAllText(@"WeatherObserved.example.json");
-      AWG.FIWARE.DataModels.WeatherObserved weatherObservedDeserialized = JsonConvert.DeserializeObject<AWG.FIWARE.DataModels.WeatherObserved>(exampleWeatherObservedSerialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
+      AWG.FIWARE.DataModels.WeatherObserved weatherObservedDeserialized = JsonConvert.DeserializeObject<AWG.FIWARE.DataModels.WeatherObserved>(exampleWeatherObservedSerialized);
 
-      var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObservedDeserialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
+      var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObservedDeserialized);
 
       var jdp = new JsonDiffPatch();
       var j1 = JObject.Parse(exampleWeatherObservedSerialized);
@@ -42,10 +39,11 @@ namespace Normalized.WeatherObserved
 
       string diffstring = JsonConvert.SerializeObject(diff, Formatting.Indented);
       Assert.IsNull(diff, "differences:\n{0}", diffstring);
+
     }
 
     //check if a WeatherObserved object serialization is conform to the schema definition
-    /*[TestMethod]
+    [TestMethod]
     public void Serialization_IsConformToSchema()
     {
       string jsonSchema = System.IO.File.ReadAllText(@"WeatherObserved.schema.json");
@@ -81,13 +79,13 @@ namespace Normalized.WeatherObserved
         WindDirection = null,
         WindSpeed = null
       };
-      var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObserved, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
+      var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObserved);
 
       JObject weatherObservedJObject = JObject.Parse(weatherObservedSerialized);
       IList<ValidationError> messages = new List<ValidationError>();
       var isValid = weatherObservedJObject.IsValid(schema, out messages);
 
       Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}\nJSON:{1}", string.Join("\n\t\t\t", messages), JsonConvert.SerializeObject(weatherObservedJObject, Formatting.Indented));
-    }*/
+    }
   }
 }
