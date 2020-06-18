@@ -20,7 +20,7 @@
     <Content Include="WeatherObserved\WeatherObserved.schema.json" Link="WeatherObserved.schema.json" CopyToOutputDirectory="Always" />
     <Content Include="Device\Device.schema.json" Link="Device.schema.json" CopyToOutputDirectory="Always" />
     <Content Include="Device\Device.example.json" Link="Device.example.json" CopyToOutputDirectory="Always" />
-    <Content Include="DeviceModel\DeviceModel.example.json" Link="DeviceModel.schema.json" CopyToOutputDirectory="Always" />
+    <Content Include="DeviceModel\DeviceModel.example.json" Link="DeviceModel.example.json" CopyToOutputDirectory="Always" />
     <Content Include="DeviceModel\DeviceModel.schema.json" Link="DeviceModel.schema.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>

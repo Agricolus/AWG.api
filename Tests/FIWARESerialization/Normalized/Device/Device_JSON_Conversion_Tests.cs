@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using AWG.FIWARE.Serializers;
 using BAMCIS.GeoJSON;
-using JsonDiffer;
+using JsonDiffPatchDotNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,10 +22,12 @@ namespace Normalized.Device
 
       var deviceSerialized = JsonConvert.SerializeObject(deviceDeserialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.Device>());
 
-      var diff = JsonDifferentiator.Differentiate(JObject.Parse(exampleDeviceSerialized), JObject.Parse(deviceSerialized));
+      var jdp = new JsonDiffPatch();
+      var j1 = JObject.Parse(exampleDeviceSerialized);
+      var j2 = JObject.Parse(deviceSerialized);
+      JToken diff = jdp.Diff(j1, j2);
 
       string diffstring = JsonConvert.SerializeObject(diff, Formatting.Indented);
-      // Assert.AreEqual(exampletrimmed, serializedtrimmed);
       Assert.IsNull(diff, "differences:\n{0}", diffstring);
     }
 

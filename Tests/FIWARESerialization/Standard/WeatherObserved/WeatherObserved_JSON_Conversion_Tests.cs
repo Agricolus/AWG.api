@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using BAMCIS.GeoJSON;
-using JsonDiffer;
 using JsonDiffPatchDotNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -68,7 +66,7 @@ namespace Standard.WeatherObserved
         DewPoint = null,
         Illuminance = null,
         Location = new Point(new Position(0, 0)),
-        StationName = "i have no name, should have stationName",
+        Name = "i have no name, should have stationName",
         Precipitation = null,
         PressureTendency = null,
         RefDevice = "Device:test",

@@ -13,11 +13,11 @@
     "coordinates": [-4.754444444, 41.640833333]
   },
   "precipitation": 0,
-  "pressureTendency": 0.5,
+  "pressureTendency": "raising",
   "relativeHumidity": 1,
   "source": "http://www.aemet.es",
   "stationCode": "2422",
-  "stationName": "Valladolid",
+  "name": "Valladolid",
   "temperature": 3.3,
   "windDirection": -45,
   "windSpeed": 2,

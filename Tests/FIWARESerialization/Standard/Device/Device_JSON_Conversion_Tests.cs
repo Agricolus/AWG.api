@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using BAMCIS.GeoJSON;
-using JsonDiffer;
+using JsonDiffPatchDotNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,10 +21,12 @@ namespace Standard.Device
 
       var deviceSerialized = JsonConvert.SerializeObject(deviceDeserialized);
 
-      var diff = JsonDifferentiator.Differentiate(JObject.Parse(exampleDeviceSerialized), JObject.Parse(deviceSerialized));
+      var jdp = new JsonDiffPatch();
+      var j1 = JObject.Parse(exampleDeviceSerialized);
+      var j2 = JObject.Parse(deviceSerialized);
+      JToken diff = jdp.Diff(j1, j2);
 
       string diffstring = JsonConvert.SerializeObject(diff, Formatting.Indented);
-      // Assert.AreEqual(exampletrimmed, serializedtrimmed);
       Assert.IsNull(diff, "differences:\n{0}", diffstring);
     }
 
@@ -41,7 +42,7 @@ namespace Standard.Device
       {
         Id = "Device:test",
         BatteryLevel = null,
-        Category = new[] { "category 1" },
+        Category = new[] { "sensor" },
         Configuration = "{'test': 'configuration value'}",
         ControlledAsset = new[] { "asset 1", "asset 2" },
         ControlledProperty = new[] { "property 1", "property 2" },
@@ -71,10 +72,10 @@ namespace Standard.Device
       var deviceSerialized = JsonConvert.SerializeObject(device);
 
       JObject deviceJObject = JObject.Parse(deviceSerialized);
-      IList<string> messages = new List<string>();
+      IList<ValidationError> messages = new List<ValidationError>();
       var isValid = deviceJObject.IsValid(schema, out messages);
 
-      Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}", string.Join("\n\t\t\t", messages));
+      Assert.IsTrue(isValid, "Schema validation failed:\n\t\t\t{0}\nJSON:{1}", string.Join("\n\t\t\t", messages), JsonConvert.SerializeObject(deviceJObject, Formatting.Indented));
     }
   }
 }

@@ -68,7 +68,7 @@ namespace Normalized.WeatherObserved
         DewPoint = null,
         Illuminance = null,
         Location = new Point(new Position(0, 0)),
-        StationName = "i have no name, should have stationName",
+        Name = "i have no name, should have stationName",
         Precipitation = null,
         PressureTendency = null,
         RefDevice = "Device:test",

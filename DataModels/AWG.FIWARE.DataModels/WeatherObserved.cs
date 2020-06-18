@@ -35,7 +35,7 @@ namespace AWG.FIWARE.DataModels
     [JsonConverter(typeof(IsoDateTimeConverter))]
     public DateTime? DateCreated { get; }
 
-    public string StationName { get; set; }
+    public string Name { get; set; }
 
     [GeoJSON]
     public GeoJson Location { get; set; }
