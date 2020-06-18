@@ -10,15 +10,16 @@ namespace AWG.Tests
 {
   public class GenericPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
   {
-    //private readonly StationsContext db;
-    private readonly MeasuresContext db;
+    private readonly StationsContext db;
+    private readonly MeasuresContext _db;
     private readonly IMediator mediator;
     private readonly IMapper mapper;
     private readonly IConfiguration configuration;
 
-    public GenericPipelineBehavior(/*StationsContext db,*/ MeasuresContext db, IMediator mediator, IMapper mapper, IConfiguration configuration)
+    public GenericPipelineBehavior(StationsContext db, MeasuresContext _db, IMediator mediator, IMapper mapper, IConfiguration configuration)
     {
       this.db = db;
+      this._db = _db;
       this.mediator = mediator;
       this.mapper = mapper;
       this.configuration = configuration;

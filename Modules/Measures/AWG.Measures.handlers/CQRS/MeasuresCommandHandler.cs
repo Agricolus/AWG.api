@@ -7,10 +7,12 @@ using AWG.Measures.handlers.Model;
 using AWG.Measures.core.Command;
 using fiware = AWG.FIWARE.DataModels;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AWG.Measures.handlers.Command
 {
-  public class MeasuresCommandHandler : IRequestHandler<AddMeasure, fiware.WeatherObserved>
+  public class MeasuresCommandHandler : IRequestHandler<AddMeasure, fiware.WeatherObserved>,
+                                        IRequestHandler<DeleteMeasure>
   {
     private readonly MeasuresContext db;
     private readonly IMediator mediator;
@@ -42,6 +44,20 @@ namespace AWG.Measures.handlers.Command
       await mediator.Publish(new UpdateMeasureNotification() { Measure = result });
 
       return result;
+    }
+
+    public async Task<Unit> Handle(DeleteMeasure request, CancellationToken cancellationToken)
+    {
+      var measure = await db.WeatherObserved.Where(f => f.Id == request.Id).FirstOrDefaultAsync();
+
+      if (measure == null)
+        return Unit.Value;
+
+      db.WeatherObserved.Remove(measure);
+
+      await db.SaveChangesAsync();
+
+      return Unit.Value;
     }
   }
 }

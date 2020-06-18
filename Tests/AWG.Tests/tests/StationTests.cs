@@ -71,13 +71,15 @@ namespace AWG.Tests.tests
     {
       var localParams = parameters["CreateStation"];
 
-      var model = JsonConvert.DeserializeObject<fiware.Device>(localParams["model"].ToString());
+      fiware.Device model = JsonConvert.DeserializeObject<fiware.Device>(localParams["model"].ToString());
 
       Assert.IsNotNull(model, "Model is null");
 
-      var result = await mediator.Send(new CreateStation() { Model = model });
+      var result = await mediator.Send(new CreateStation() { Model = model, CBEnabled = false });
 
       Assert.IsNotNull(result, "Result is null");
+
+      await mediator.Send(new DeleteStation() { Id = result.Id, CBEnabled = false });
     }
 
     [TestMethod]
@@ -85,13 +87,15 @@ namespace AWG.Tests.tests
     {
       var localParams = parameters["CreateStationLD"];
 
-      var model = JsonConvert.DeserializeObject<fiware.DeviceLD>(localParams["model"].ToString());
+      fiware.DeviceLD model = JsonConvert.DeserializeObject<fiware.DeviceLD>(localParams["model"].ToString());
 
       Assert.IsNotNull(model, "Model is null");
 
-      var result = await mediator.Send(new CreateStation() { Model = model });
+      var result = await mediator.Send(new CreateStation() { Model = model, CBEnabled = false });
 
       Assert.IsNotNull(result, "Result is null");
+
+      await mediator.Send(new DeleteStation() { Id = result.Id, CBEnabled = false });
     }
 
     [TestMethod]
@@ -103,7 +107,7 @@ namespace AWG.Tests.tests
 
       Assert.IsNotNull(id, "Id is null");
 
-      var result = await mediator.Send(new DeleteStation() { Id = id });
+      var result = await mediator.Send(new DeleteStation() { Id = id, CBEnabled = false });
 
       Assert.IsNotNull(result, "Result is null");
     }

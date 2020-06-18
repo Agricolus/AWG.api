@@ -27,13 +27,15 @@ namespace AWG.Tests.tests
     {
       var localParams = parameters["PostMeasure"];
 
-      var model = JsonConvert.DeserializeObject<fiware.WeatherObserved>(localParams["model"].ToString());
+      fiware.WeatherObserved model = JsonConvert.DeserializeObject<fiware.WeatherObserved>(localParams["model"].ToString());
 
       Assert.IsNotNull(model, "Model is null");
 
       var result = await mediator.Send(new AddMeasure() { Model = model });
 
       Assert.IsNotNull(result, "Result is null");
+
+      await mediator.Send(new DeleteMeasure() { Id = result.Id });
     }
 
     [TestMethod]
@@ -41,34 +43,29 @@ namespace AWG.Tests.tests
     {
       var localParams = parameters["PostMeasureLD"];
 
-      var model = JsonConvert.DeserializeObject<fiware.WeatherObservedLD>(localParams["model"].ToString());
+      fiware.WeatherObservedLD model = JsonConvert.DeserializeObject<fiware.WeatherObservedLD>(localParams["model"].ToString());
 
       Assert.IsNotNull(model, "Model is null");
 
       var result = await mediator.Send(new AddMeasure() { Model = model });
 
       Assert.IsNotNull(result, "Result is null");
+
+      await mediator.Send(new DeleteMeasure() { Id = result.Id });
     }
 
     [TestMethod]
     public async Task GetLastMeasure()
     {
-      try
-      {
-        var localParams = parameters["GetLastMeasure"];
+      var localParams = parameters["GetLastMeasure"];
 
-        var stationId = localParams["stationId"].ToString();
+      var stationId = localParams["stationId"].ToString();
 
-        Assert.IsNotNull(stationId, "StationId is null");
+      Assert.IsNotNull(stationId, "StationId is null");
 
-        var result = await mediator.Send(new GetLastMeasure() { StationId = stationId });
+      var result = await mediator.Send(new GetLastMeasure() { StationId = stationId });
 
-        Assert.IsNotNull(result, "Result is null");
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine(e.StackTrace);
-      }
+      Assert.IsNotNull(result, "Result is null");
     }
 
     [TestMethod]
