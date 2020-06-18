@@ -10,7 +10,7 @@ using Newtonsoft.Json.Schema;
 namespace Normalized.WeatherObserved
 {
   [TestClass]
-  public class WeatherObservedTest
+  public class WeatherObserved_JSON_Conversion_Tests
   {
     //this test seems more suited for the serializer in general 
     [TestMethod]
@@ -33,7 +33,7 @@ namespace Normalized.WeatherObserved
       var weatherObservedSerialized = JsonConvert.SerializeObject(weatherObservedDeserialized, new FiwareNormalizedJsonConverter<AWG.FIWARE.DataModels.WeatherObserved>());
 
       var exampletrimmed = Regex.Replace(exampleWeatherObservedSerialized, @"\r\n?|\n|\t|\s", String.Empty);
-      var serializedtrimmed = Regex.Replace(weatherObservedSerialized, @"\r\n?|\n|\t", String.Empty);
+      var serializedtrimmed = Regex.Replace(weatherObservedSerialized, @"\r\n?|\n|\t|\s", String.Empty);
 
       Assert.AreEqual(exampletrimmed, serializedtrimmed);
     }
