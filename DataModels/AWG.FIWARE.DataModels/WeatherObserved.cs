@@ -42,7 +42,7 @@ namespace AWG.FIWARE.DataModels
     public Address Address { get; set; }
 
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    public DateTime DateObserved { get; set; }
+    public DateTime? DateObserved { get; set; }
 
     public string Source { get; set; }
 
