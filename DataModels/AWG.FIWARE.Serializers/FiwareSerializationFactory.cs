@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System;
 using System.Linq;
-using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using AWG.FIWARE.Serializers.Exceptions;
+using AWG.FIWARE.Serializers.Attributes;
 
 namespace AWG.FIWARE.Serializers
 {
@@ -30,64 +30,152 @@ namespace AWG.FIWARE.Serializers
       typeof(String), typeof(char)
     };
 
+
+
+
     public override T ReadJson(JsonReader reader, Type objectType, T existingValue, bool hasExistingValue, JsonSerializer serializer)
     {
-      var jobject = JObject.ReadFrom(reader);
-      var values = jobject.ToDictionary(t => t.Path.ToLower());
-      var target = new T();
 
-      var contractTerms = (JsonObjectContract)serializer.ContractResolver.ResolveContract(objectType);
-      foreach (var contractProperty in contractTerms.Properties)
+      // if (!objectType.GetInterfaces().Contains(typeof(IContextBrokerEntity)))
+      // {
+      //   throw new DeserializationException($"The type {objectType.Name} is not a IContextBrokerEntity entity");
+      // }
+      try
       {
-        var targetPropertyName = string.IsNullOrEmpty(contractProperty.UnderlyingName) ? contractProperty.PropertyName : contractProperty.UnderlyingName;
-        var jsonPropertyName = contractProperty.PropertyName.ToLower();
-        var targetProperty = typeof(T).GetProperty(targetPropertyName);
-        var targetPropertyType = targetProperty.PropertyType;
+        var jobject = JObject.ReadFrom(reader);
 
-        Type nullableProperty = Nullable.GetUnderlyingType(contractProperty.PropertyType);
-        if (nullableProperty != null)
-          targetPropertyType = nullableProperty;
+        var values = jobject.ToDictionary(t => t.Path.ToLower());
+        var target = new T();
 
-        JToken jsonPropertyValue;
-        if (values.TryGetValue(jsonPropertyName, out jsonPropertyValue))
+        var contractTerms = (JsonObjectContract)serializer.ContractResolver.ResolveContract(objectType);
+        foreach (var contractProperty in contractTerms.Properties)
         {
-          try
-          {
-            var jprop = (jsonPropertyValue as JProperty);
-            if (jprop == null) continue;
+          var targetPropertyName = string.IsNullOrEmpty(contractProperty.UnderlyingName) ? contractProperty.PropertyName : contractProperty.UnderlyingName;
+          var jsonPropertyName = contractProperty.PropertyName.ToLower();
+          var targetProperty = typeof(T).GetProperty(targetPropertyName);
+          var targetPropertyType = targetProperty.PropertyType;
 
-            if (jprop.Value.Type == JTokenType.Object)
+          Type nullableProperty = Nullable.GetUnderlyingType(contractProperty.PropertyType);
+          if (nullableProperty != null)
+            targetPropertyType = nullableProperty;
+
+          JToken jsonPropertyValue;
+          if (values.TryGetValue(jsonPropertyName, out jsonPropertyValue))
+          {
+            try
             {
-              var result = jprop.Value.ToObject<FiwareNormalzedProperty>();
-              if (result != null && result.Value != null)
+              var jprop = (jsonPropertyValue as JProperty);
+              if (jprop == null) continue;
+
+              if (jprop.Value.Type == JTokenType.Object)
               {
-                if (targetPropertyType.IsEnum)
-                  targetProperty.SetValue(target, Enum.Parse(targetPropertyType, (string)result.Value));
-                else if (result.Value is JObject)
-                  targetProperty.SetValue(target, ((JObject)result.Value).ToObject(targetPropertyType));
-                else
-                  targetProperty.SetValue(target, Convert.ChangeType(result.Value, targetPropertyType));
+                var result = jprop.Value.ToObject<FiwareNormalzedProperty>();
+                if (result != null && result.Value != null)
+                {
+                  if (targetPropertyType.IsEnum)
+                    targetProperty.SetValue(target, Enum.Parse(targetPropertyType, (string)result.Value));
+                  else if (result.Value is JObject)
+                    targetProperty.SetValue(target, ((JObject)result.Value).ToObject(targetPropertyType));
+                  else if (result.Value is JArray)
+                    targetProperty.SetValue(target, ((JArray)result.Value).ToObject(targetPropertyType));
+                  else
+                    targetProperty.SetValue(target, Convert.ChangeType(result.Value, targetPropertyType));
+                }
+                continue;
               }
-              continue;
+
+              // fallback -- all other properties will be deserialized in a standard way
+
+              var myvalue = jprop.Value.ToObject(targetProperty.PropertyType);
+              targetProperty.SetValue(target, Convert.ChangeType(myvalue, targetPropertyType));
             }
-
-            // fallback -- all other properties will be deserialized in a standard way
-
-            var myvalue = jprop.Value.ToObject(targetProperty.PropertyType);
-            targetProperty.SetValue(target, Convert.ChangeType(myvalue, targetPropertyType));
-          }
-          catch (Exception ex)
-          {
-            throw new Exception($"Deserialization Error: property: {targetProperty.Name} -- {ex.Message}", ex);
+            catch (Exception ex)
+            {
+              throw new DeserializationException($"Deserialization Error: property: {targetProperty.Name} -- {ex.Message}", ex);
+            }
           }
         }
-      }
 
-      return target;
+        return target;
+      }
+      catch (Exception e)
+      {
+        throw new DeserializationException("Deserialization Error: json is not valid", e);
+      }
     }
 
-    public override bool CanWrite { get { return false; } }
+    public override bool CanWrite { get { return true; } }
     public override void WriteJson(JsonWriter writer, T value, JsonSerializer serializer)
-    { }
+    {
+      if (value == null)
+      {
+        serializer.Serialize(writer, null);
+        return;
+      }
+      writer.WriteStartObject();
+      var contractTerms = (JsonObjectContract)serializer.ContractResolver.ResolveContract(typeof(T));
+
+      foreach (var contractProperty in contractTerms.Properties)
+      {
+        var propertyType = contractProperty.PropertyType;
+        var targetProperty = typeof(T).GetProperty(contractProperty.UnderlyingName);
+        Type nullableProperty = Nullable.GetUnderlyingType(propertyType);
+        if (nullableProperty != null)
+          propertyType = nullableProperty;
+        var propertyValue = contractProperty.ValueProvider.GetValue(value);
+        if (propertyValue == null && contractTerms.ItemNullValueHandling == NullValueHandling.Ignore)
+          continue;
+        if (typeof(IContextBrokerEntity).GetProperty(contractProperty.UnderlyingName) != null) //gestione degli attributi da non normalizzare (definiti dentro l'interfaccia)
+        {
+          writer.WritePropertyName(contractProperty.PropertyName);
+          serializer.Serialize(writer, propertyValue);
+          continue;
+        }
+
+        writer.WritePropertyName(contractProperty.PropertyName);
+        writer.WriteStartObject();
+        writer.WritePropertyName("value");
+        if (contractProperty.Converter != null)
+        {
+          contractProperty.Converter.WriteJson(writer, propertyValue, serializer);
+        }
+        else
+        {
+          if (NumberTypes.Contains(propertyValue))
+            propertyValue = String.Format("{0:0.###########}", propertyValue);
+          serializer.Serialize(writer, propertyValue);
+        }
+
+        // if (NumberTypes.Contains(propertyType))
+        //   writer.WriteValue("Number");
+        //if (StringTypes.Contains(propertyType))
+        //  writer.WriteValue("Text");
+
+        //geojson serialization
+        if (propertyType.GetInterface(typeof(IGeoJSON).Name) != null || Attribute.GetCustomAttribute(targetProperty, typeof(GeoJSON)) != null)
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("geo:json");
+        }
+        if (Attribute.GetCustomAttribute(targetProperty, typeof(Relationship)) != null)
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("Relationship");
+        }
+        if (Attribute.GetCustomAttribute(targetProperty, typeof(PostalAddress)) != null)
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("PostalAddress");
+        }
+        if (targetProperty.PropertyType.IsAssignableFrom(typeof(DateTime)))
+        {
+          writer.WritePropertyName("type");
+          writer.WriteValue("DateTime");
+        }
+        writer.WriteEndObject();
+      }
+
+      writer.WriteEndObject();
+    }
   }
 }

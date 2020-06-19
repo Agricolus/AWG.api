@@ -47,8 +47,8 @@ namespace AWG.Stations.handlers.Command
         {
           Id = entityId,
           RefDevice = station.Id,
-          DateCreated = station.DateCreated.ToString("u"),
-          DateModified = station.DateModified.ToString("u"),
+          DateCreated = station.DateCreated.Value.ToString("u"),
+          DateModified = station.DateModified.Value.ToString("u"),
           DataProvider = station.DataProvider,
           DateObserved = null,
           Source = station.Source,
@@ -66,8 +66,8 @@ namespace AWG.Stations.handlers.Command
         var entity = new WeatherObservedCBEntityUpdate()
         {
           RefDevice = station.Id,
-          DateCreated = station.DateCreated.ToString("u"),
-          DateModified = station.DateModified.ToString("u"),
+          DateCreated = station.DateCreated.Value.ToString("u"),
+          DateModified = station.DateModified.Value.ToString("u"),
           DataProvider = station.DataProvider,
           Source = station.Source,
           Name = station.Name,
