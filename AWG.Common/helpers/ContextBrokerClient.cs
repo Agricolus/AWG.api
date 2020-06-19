@@ -255,7 +255,7 @@ namespace AWG.Common.Helpers
     {
       var contentString = JsonConvert.SerializeObject(sub);
 
-      var response = await client.PostAsync($"{apiVersion}/subscriptions", new StringContent(contentString, Encoding.UTF8, "application/json"));
+      var response = await client.PostAsync($"{apiVersion}/subscriptions?options=skipInitialNotification", new StringContent(contentString, Encoding.UTF8, "application/json"));
 
       if (response.StatusCode == System.Net.HttpStatusCode.Created)
       {
@@ -272,7 +272,7 @@ namespace AWG.Common.Helpers
         expires = expire
       };
       var contentString = JsonConvert.SerializeObject(expireObject);
-      var response = await client.PatchAsync($"{apiVersion}/subscriptions/{subscriptionId}", new StringContent(contentString, Encoding.UTF8, "application/json"));
+      var response = await client.PatchAsync($"{apiVersion}/subscriptions/{subscriptionId}?options=skipInitialNotification", new StringContent(contentString, Encoding.UTF8, "application/json"));
 
       if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
       {
