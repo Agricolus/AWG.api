@@ -255,15 +255,7 @@ namespace AWG.Common.Helpers
     {
       var contentString = JsonConvert.SerializeObject(sub);
 
-      string uri = $"{apiVersion}/subscriptions";
-      Uri requestUri;
-      Uri.TryCreate(client.BaseAddress, uri, out requestUri);
-      var subscriptionEntityUri = new UriBuilder(requestUri);
-      NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-      queryString.Add("options", "skipInitialNotification");
-      subscriptionEntityUri.Query = queryString.ToString();
-
-      var response = await client.PostAsync(subscriptionEntityUri.Uri, new StringContent(contentString, Encoding.UTF8, "application/json"));
+      var response = await client.PostAsync($"{apiVersion}/subscriptions", new StringContent(contentString, Encoding.UTF8, "application/json"));
 
       if (response.StatusCode == System.Net.HttpStatusCode.Created)
       {
