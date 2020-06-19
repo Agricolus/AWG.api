@@ -28,10 +28,10 @@ namespace AWG.FIWARE.DataModels
     public string DataProvider { get; set; }
 
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    public DateTime? DateModified { get; }
+    public DateTime? DateModified { get; set; }
 
     [JsonConverter(typeof(IsoDateTimeConverter))]
-    public DateTime? DateCreated { get; }
+    public DateTime? DateCreated { get; set; }
 
     public string Name { get; set; }
 
