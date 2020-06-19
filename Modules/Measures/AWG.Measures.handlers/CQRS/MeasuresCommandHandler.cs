@@ -29,6 +29,11 @@ namespace AWG.Measures.handlers.Command
     {
       var measure = mapper.Map<WeatherObserved>(request.Model);
 
+      var oldmeasure = await db.WeatherObserved.Where(f => f.RefDevice == measure.RefDevice && f.DateObserved == measure.DateObserved).FirstOrDefaultAsync();
+
+      if (oldmeasure != null)
+        return request.Model;
+
       var now = DateTime.UtcNow;
 
       measure.Id = $"urn:ngsi-ld:WeatherObserved:{Guid.NewGuid().ToString()}";
