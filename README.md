@@ -44,6 +44,8 @@ This Gateway is both a standalone application and a data gateway for agroweather
 
 ## Architecture
 
+![Architecture](Architecture.jpg "Architecture")
+
 * **Context Providers**: 
    * Will interact with different producers ecosystems and cloud applications. Each producer may allow the access to a cloud repository or directly to the sensors. The context provider will manage the communication layers, the authentication of the weatherstations, sensors specific configurations and other hardware-related data (such as alarm notifications in case of hardware failure, if provided)
 * **APIs Access for External Applications**: 
