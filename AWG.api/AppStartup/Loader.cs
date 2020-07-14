@@ -9,6 +9,9 @@ using System.Runtime.Loader;
 using AWG.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace AWG.api.AppStartup
 {
@@ -27,6 +30,7 @@ namespace AWG.api.AppStartup
 
     public void Compose()
     {
+      Console.WriteLine("Composing API modules");
       // Catalogs does not exists in Dotnet Core, so you need to manage your own.
       var assemblies = new List<Assembly>() { typeof(Program).GetTypeInfo().Assembly };
 
@@ -60,6 +64,12 @@ namespace AWG.api.AppStartup
     {
       foreach (var m in this.Modules)
         m.ConfigureServices(services, configuration);
+    }
+
+    public void Configure(IApplicationBuilder app, IHostEnvironment env)
+    {
+      foreach (var m in this.Modules)
+        m.Configure(app, env);
     }
   }
 }

@@ -10,7 +10,9 @@
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/AWG.api/bin/Debug/netcoreapp3.1/AWG.api.dll",
-      "args": [],
+      "args": [
+        "--urls=http://localhost:5001/"
+      ],
       "cwd": "${workspaceFolder}/AWG.api",
       "stopAtEntry": false,
       "serverReadyAction": {

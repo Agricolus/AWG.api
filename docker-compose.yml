@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+  dbpg:
+    image: postgres:11
+    restart: always
+    hostname: dbpg
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5002:5432"
+
+  awg-api:
+    depends_on:
+      - dbpg
+    restart: always
+    image: awg:api
+    container_name: awg-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./appsettings.json:/AWGAPI/out/appsettings.json
+
+networks:
+  default:
+    name: awgapinet
