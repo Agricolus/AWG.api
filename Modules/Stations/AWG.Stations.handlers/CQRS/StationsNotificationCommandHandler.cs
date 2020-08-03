@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using AWG.Stations.handlers.Model;
 using System.Threading.Tasks;
 using System.Threading;
@@ -37,8 +36,6 @@ namespace AWG.Stations.handlers.Command
 
       await db.SaveChangesAsync();
     }
-
-
 
     public async Task Handle(UpdateMeasureNotification notification, CancellationToken cancellationToken)
     {

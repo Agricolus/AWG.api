@@ -1,0 +1,99 @@
+{
+  "PostMeasure": {
+    "model": {
+      "id": null,
+      "type": "WeatherObserved",
+      "dataProvider": "UNITTEST",
+      "dateModified": "2020-01-01T00:00:00",
+      "dateCreated": "2020-01-01T00:00:00",
+      "name": "Station Unit Test",
+      "location": {
+        "coordinates": [
+          12,
+          43
+        ],
+        "type": "Point"
+      },
+      "address": null,
+      "dateObserved": "2020-01-01T00:00:00",
+      "source": null,
+      "refDevice": "urn:ngsi-ld:Device:UNITTEST-UNITTEST",
+      "refPointOfInterest": null,
+      "weatherType": null,
+      "dewPoint": null,
+      "visibility": null,
+      "temperature": null,
+      "relativeHumidity": null,
+      "precipitation": null,
+      "windDirection": null,
+      "windSpeed": null,
+      "atmosphericPressure": null,
+      "pressureTendency": null,
+      "solarRadiation": null,
+      "illuminance": null,
+      "streamGauge": null,
+      "snowHeight": null
+    }
+  },
+  "PostMeasureLD": {
+    "model": {
+      "id": null,
+      "type": "WeatherObserved",
+      "dataProvider": "UNITTEST",
+      "dateModified": "2020-01-01T00:00:00",
+      "dateCreated": "2020-01-01T00:00:00",
+      "name": "Station Unit Test",
+      "location": {
+        "coordinates": [
+          12,
+          43
+        ],
+        "type": "Point"
+      },
+      "address": null,
+      "dateObserved": "2020-01-01T00:00:00",
+      "source": null,
+      "refDevice": "urn:ngsi-ld:Device:UNITTEST-UNITTEST",
+      "refPointOfInterest": null,
+      "weatherType": null,
+      "dewPoint": null,
+      "visibility": null,
+      "temperature": null,
+      "relativeHumidity": null,
+      "precipitation": null,
+      "windDirection": null,
+      "windSpeed": null,
+      "atmosphericPressure": null,
+      "pressureTendency": null,
+      "solarRadiation": null,
+      "illuminance": null,
+      "streamGauge": null,
+      "snowHeight": null
+    }
+  },
+  "GetLastMeasure": {
+    "stationId": "urn:ngsi-ld:Device:PESSL-01208D30",
+    "fromDate": null,
+    "toDate": null
+  },
+  "GetLastDailyMeasure": {
+    "stationId": "urn:ngsi-ld:Device:PESSL-01208D30",
+    "fromDate": null,
+    "toDate": null
+  },
+  "GetLastWeeklyMeasure": {
+    "stationId": "urn:ngsi-ld:Device:PESSL-01208D30",
+    "fromDate": null,
+    "toDate": null
+  },
+  "GetLastMonthlyMeasure": {
+    "stationId": "urn:ngsi-ld:Device:PESSL-01208D30",
+    "fromDate": null,
+    "toDate": null
+  },
+  "GetMeasureList": {
+    "stationId": "urn:ngsi-ld:Device:PESSL-01208D30",
+    "fromDate": "2020-01-01T00:00:00",
+    "toDate": null
+  }
+}

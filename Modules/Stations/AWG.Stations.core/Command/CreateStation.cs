@@ -9,5 +9,6 @@ namespace AWG.Stations.core.Command
   public class CreateStation : IRequest<fiware.Device>
   {
     public fiware.Device Model { get; set; }
+    public bool CBEnabled { get; set; } = true;
   }
 }

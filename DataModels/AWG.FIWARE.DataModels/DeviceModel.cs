@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 /// <summary>
 /// Fiware DeviceModel data model
@@ -16,13 +18,14 @@ namespace AWG.FIWARE.DataModels
 
   }
 
+  [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy), ItemNullValueHandling = NullValueHandling.Ignore)]
   public class DeviceModel
   {
     public string Id { get; set; }
     public string Type { get; private set; } = "DeviceModel";
     public string Source { get; set; }
     public Uri DataProvider { get; set; }
-    public string Category { get; set; }
+    public IEnumerable<string> Category { get; set; }
     public string DeviceClass { get; set; }
     public IEnumerable<string> ControlledProperty { get; set; }
     public IEnumerable<string> Function { get; set; }

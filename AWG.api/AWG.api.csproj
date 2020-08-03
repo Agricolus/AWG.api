@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
@@ -28,5 +29,6 @@
     <ProjectReference Include="..\Modules\Measures\AWG.Measures.api\AWG.Measures.api.csproj"/>
     <ProjectReference Include="..\Modules\Measures\AWG.Measures.core\AWG.Measures.core.csproj"/>
     <ProjectReference Include="..\Modules\Measures\AWG.Measures.handlers\AWG.Measures.handlers.csproj"/>
+    <ProjectReference Include="..\Tests\AWG.Tests\AWG.Tests.csproj"/>
   </ItemGroup>
 </Project>

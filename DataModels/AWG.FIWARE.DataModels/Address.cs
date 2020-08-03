@@ -1,5 +1,9 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace AWG.FIWARE.DataModels
 {
+  [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy), ItemNullValueHandling = NullValueHandling.Ignore)]
   public class Address
   {
     public string AddressCountry { get; set; }

@@ -1,4 +1,4 @@
-namespace AWG.FIWARE.Serializers
+﻿namespace AWG.FIWARE.Serializers
 {
   public class FiwareNormalzedProperty
   {

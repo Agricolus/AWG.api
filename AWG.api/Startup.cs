@@ -71,6 +71,7 @@ namespace AWG.api
       {
         app.UseDeveloperExceptionPage();
       }
+      Loader.Current.Configure(app, env);
 
       app.UseSwagger();
 
