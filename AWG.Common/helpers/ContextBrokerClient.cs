@@ -168,7 +168,7 @@ namespace AWG.Common.Helpers
         entityString = JsonConvert.SerializeObject(entityObject, new FiwareNormalizedJsonConverter<T>());
       }
       retrieveEntityUri.Query = queryString.ToString();
-      var response = await client.PatchAsync(retrieveEntityUri.Uri, new StringContent(entityString, Encoding.UTF8, "application/json"));
+      var response = await client.PutAsync(retrieveEntityUri.Uri, new StringContent(entityString, Encoding.UTF8, "application/json"));
 
       if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
       {

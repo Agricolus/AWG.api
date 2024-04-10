@@ -43,7 +43,7 @@ namespace AWG.Stations.handlers.Command
 
       if (station == null) return;
 
-      if (station.DateLastValueReported < notification.Measure.DateObserved)
+      if (station.DateLastValueReported == null || station.DateLastValueReported < notification.Measure.DateObserved)
         station.DateLastValueReported = notification.Measure.DateObserved;
 
       await db.SaveChangesAsync();
